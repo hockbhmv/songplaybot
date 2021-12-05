@@ -84,7 +84,7 @@ async def song(client, message):
         title=str(yt.title),
         caption=cap,
         thumb=thumb_name,
-        performer=str(yt.author),
+        performer=f"[MD MUSUIC BOT]",
         reply_to_message_id=message.message_id,
     )
     await status.delete()
