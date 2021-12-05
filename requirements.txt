@@ -3,3 +3,4 @@ pyrogram
 tgcrypto
 youtube_search
 requests
+pyromod
