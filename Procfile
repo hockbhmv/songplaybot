@@ -1,1 +1,1 @@
-worker: songbot py
+worker: python3 -m bot
