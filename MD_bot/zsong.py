@@ -6,6 +6,7 @@ import time
 import youtube_dl
 import logging
 from youtube_search import YoutubeSearch
+from pytube import YouTube
 import requests
 from youtubesearchpython import VideosSearch
 logging.getLogger().setLevel(logging.ERROR)
