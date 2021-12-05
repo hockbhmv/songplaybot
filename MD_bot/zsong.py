@@ -7,7 +7,7 @@ import youtube_dl
 import logging
 from youtube_search import YoutubeSearch
 import requests
-
+from youtubesearchpython import VideosSearch
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
