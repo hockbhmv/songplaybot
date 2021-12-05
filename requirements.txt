@@ -2,5 +2,6 @@ youtube_dl
 pyrogram
 tgcrypto
 youtube_search
+youtube_search_python
 requests
 pyromod
