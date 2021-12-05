@@ -1,7 +1,7 @@
 import os
 from info import BOT_TOKEN, API_ID, API_HASH
 import pyromod.listen
-from pyrogram import Client,
+from pyrogram import Client
 
 import logging
 logging.basicConfig(level=logging.DEBUG,
