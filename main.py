@@ -16,7 +16,7 @@ bot = Client(
     bot_token = BOT_TOKEN,
     api_id = API_ID,
     api_hash = API_HASH,
-    plugins={"root": "MD_botz"},
+    plugins={"root": "MD_bot"},
     workers=100
   )
 
