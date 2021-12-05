@@ -47,7 +47,7 @@ async def song(client, message):
         await message.reply("Enter a song name. Check /help")
         return ""
     status = await message.reply("<code>processing...</code>")
-    await asynico.sleep(1)
+    await asyncio.sleep(1)
     await status.edit("<code>🔎searching the song🔍....  Please wait ⏳ for few seconds</code>")
     video_link = yt_search(args)
     if not video_link:
