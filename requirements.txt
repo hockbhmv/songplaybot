@@ -1,4 +1,5 @@
 youtube_dl
-https://github.com/Mahesh0253/pyrogram/archive/inline.zip
+pyrogram
+tgcrypto
 youtube_search
 requests
