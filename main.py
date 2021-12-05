@@ -16,7 +16,8 @@ bot = Client(
     'SongPlayRoBot',
     bot_token = BOT_TOKEN,
     api_id = API_ID,
-    api_hash = API_HASH
+    api_hash = API_HASH,
+    workers=100
   )
 
 @Client.on_message(filters.command("start"))
