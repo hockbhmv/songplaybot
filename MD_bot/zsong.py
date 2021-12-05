@@ -26,6 +26,15 @@ def yt_search(song):
         video_id = result["result"][0]["id"]
         url = f"https://youtu.be/{video_id}"
         return url
+def get_arg(message):
+    msg = message.text
+    msg = msg.replace(" ", "", 1) if msg[1] == " " else msg
+    split = msg[1:].replace("\n", " \n").split(" ")
+    if " ".join(split[1:]).strip() == "":
+        return ""
+    return " ".join(split[1:])        
+      
+      
       
 @Client.on_message(filters.command(["music", "song"]))
 async def song(client, message):
