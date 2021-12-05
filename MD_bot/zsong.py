@@ -4,9 +4,12 @@ import asyncio
 import os
 import time
 import youtube_dl
+import logging
 from youtube_search import YoutubeSearch
 import requests
 
+logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 
 @Client.on_message(filters.command("start"))
