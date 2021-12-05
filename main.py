@@ -19,7 +19,7 @@ bot = Client(
     api_hash = API_HASH
   )
 
-@Clinet.on_message(filters.command("start"))
+@Client.on_message(filters.command("start"))
 async def start(bot, message):
   await message.reply_text(text = f"hi how are you")
   
