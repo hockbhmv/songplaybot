@@ -46,6 +46,7 @@ def time_to_seconds(time):
     stringt = str(time)
     return sum(int(x) * 60 ** i for i, x in enumerate(reversed(stringt.split(":"))))
 
+is_downloading = False
     
 @Client.on_message(filters.command(["vsong", "video"]))
 async def ytmusic(client, message: Message):
