@@ -1,6 +1,9 @@
 aiofiles
 aiohttp
 random
-__future__
+future
 urllib.parse
+
+search_engine_parser
 wget
+ffmpeg-python
