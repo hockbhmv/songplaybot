@@ -7,3 +7,10 @@ requests
 pyromod
 pytube
 tswift
+
+#forcheck vsong 
+aiofiles
+aiohttp
+random
+future
+urllib.parse
