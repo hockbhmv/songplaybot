@@ -17,4 +17,4 @@ wget
 
 ffmpeg-python
 future
-urllib.parse
+
