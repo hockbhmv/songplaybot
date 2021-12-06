@@ -1,6 +1,31 @@
+import asyncio
+import math
+import os
+import time
+from random import randint
+from urllib.parse import urlparse
+import aiofiles
+import aiohttp
+import requests
+import wget
+import youtube_dl
+from pyrogram import Client, filters
+from pyrogram.errors import FloodWait, MessageNotModified
+from pyrogram.types import Message
+from youtubesearchpython import SearchVideos
 
 
-
+def get_text(message: Message) -> [None, str]:
+    text_to_return = message.text
+    if message.text is None:
+        return None
+    if " " in text_to_return:
+        try:
+            return message.text.split(None, 1)[1]
+        except IndexError:
+            return None
+    else:
+        return None
 
 
 
