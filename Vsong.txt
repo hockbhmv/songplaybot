@@ -1,0 +1,6 @@
+aiofiles
+aiohttp
+random
+__future__
+urllib.parse
+wget
