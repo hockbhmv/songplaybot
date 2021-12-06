@@ -6,3 +6,4 @@ youtube_search_python
 requests
 pyromod
 pytube
+tswift
