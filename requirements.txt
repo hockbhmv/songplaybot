@@ -11,6 +11,10 @@ tswift
 #forcheck vsong 
 aiofiles
 aiohttp
-random
+search_engine_parser
+
+wget
+
+ffmpeg-python
 future
 urllib.parse
