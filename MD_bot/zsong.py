@@ -50,11 +50,11 @@ async def song(client, message):
  
     args = get_arg(message) + " " + "song"
     if args.startswith(" "):
-        await message.reply("Enter a song name. Check /help")
+        await message.reply("Enter a song name.\n\n **example:**\n<code>/song Clay Love Nwantiti</code>")
         return ""
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
-    await status.edit("<code>🔎searching the song🔍....  Please wait ⏳ for few seconds</code>")
+    await status.edit("<code>🔎searching the song....\n  Please wait ⏳ for few seconds</code>")
     video_link = yt_search(args)
     if not video_link:
         await status.edit("✖️ 𝐅𝐨𝐮𝐧𝐝 𝐍𝐨𝐭𝐡𝐢𝐧𝐠. 𝐒𝐨𝐫𝐫𝐲.\n\n𝐓𝐫𝐲 𝐀𝐧𝐨𝐭𝐡𝐞𝐫 𝐊𝐞𝐲𝐰𝐨𝐫𝐤 𝐎𝐫 𝐌𝐚𝐲𝐛𝐞 𝐒𝐩𝐞𝐥𝐥.\n\nEg.`/song Faded`")
@@ -76,7 +76,7 @@ async def song(client, message):
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(thumb_name, 'wb').write(thumb.content)
-    cap =f" ❍ Title : <code>{title[:35]}</code>\n❍ duration : <code>{duration}</code>\n❍ views : <code>{views}</code>\n\n❍ by @None"
+    cap =f" ❍ Title : <code>{title[:35]}</code>\n❍ duration : <code>{duration}</code>\n❍ views : <code>{views}</code>\n\n❍ by <<a href="t.me/MD_songbot">MD Music Bot</a>"
     try:
         
         download = audio.download(filename=f"{str(user_id)}")
