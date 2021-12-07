@@ -11,6 +11,8 @@ import requests
 from youtubesearchpython import VideosSearch
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
+import re
+id_pattern = re.compile(r'^.\d+$')
 CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
 
 @Client.on_message(filters.command("start"))
