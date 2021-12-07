@@ -11,7 +11,7 @@ import requests
 from youtubesearchpython import VideosSearch
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-
+CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", None)
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
@@ -84,7 +84,7 @@ async def song(client, message):
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
-        caption=cap,
+        caption=CUSTOM_CAPTION,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id=message.message_id,
