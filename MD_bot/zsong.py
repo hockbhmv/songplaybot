@@ -72,7 +72,7 @@ async def song(client, message):
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(thumb_name, 'wb').write(thumb.content)
-    cap =f" ❍ Title : <code>{title[:35]}</code>\n❍ duration : <code>{int(yt.length)}</code>\n❍ views : <code>{views}</code>\n\n❍ by @None"
+    cap =f" ❍ Title : <code>{title[:35]}</code>\n❍ duration : <code>{duration}</code>\n❍ views : <code>{views}</code>\n\n❍ by @None"
     try:
         
         download = audio.download(filename=f"{str(user_id)}")
@@ -87,7 +87,7 @@ async def song(client, message):
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
-        caption= = cap,
+        caption = cap,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id=message.message_id,
