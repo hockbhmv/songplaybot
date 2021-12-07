@@ -1,6 +1,5 @@
 from pyrogram import Client, filters
-import os 
-import environ
+from os import environ
 import asyncio
 import os
 import time
