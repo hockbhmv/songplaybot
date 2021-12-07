@@ -63,7 +63,7 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
-    caps = CUSTOM_CAPTION.format(title = results[0]["title"],duration = results[0]["duration"],views = results[0]["views"])
+    caps = CUSTOM_CAPTION.format( title = results[0]["title"],duration = results[0]["duration"],views = results[0]["views"])
     thumbnail = results[0]["thumbnails"][0]
     audio = yt.streams.filter(only_audio=True).first()
     thumb_name = f'thumb{message.message_id}.jpg' 
