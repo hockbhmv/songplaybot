@@ -87,7 +87,7 @@ async def song(client, message):
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
-        caption= CUSTOM_CAPTION.format(titles = title,view =views, duration = int(yt.length))
+        caption= CUSTOM_CAPTION.format(titles = title,view =views, duration = int(yt.length)),
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id=message.message_id,
