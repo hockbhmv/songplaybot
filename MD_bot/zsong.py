@@ -63,7 +63,7 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
-    caps = none
+   # caps = none
     title = results[0]["title"]
     duration = results[0]["duration"]
     views = results[0]["views"]
