@@ -18,7 +18,7 @@ CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
   user = message.from_user.first_name
-  await message.reply_text(text = f"ഹായ് {user},\nനിലവിൽ എന്റെ അഡ്മിൻ എന്നെ ഉണ്ടാക്കുന്നു\n\n ദയവായി പിന്നീട് വരൂ")
+  await message.reply_text(text = f"<code>ഹായ് {user},\nനിലവിൽ എന്റെ അഡ്മിൻ എന്നെ ഉണ്ടാക്കുന്നു\n\n ദയവായി പിന്നീട് വരൂ</code>")
 
 
 
@@ -76,7 +76,7 @@ async def song(client, message):
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(thumb_name, 'wb').write(thumb.content)
-    cap =f" ❍ Title : <code>{title[:35]}</code>\n❍ duration : <code>{duration}</code>\n❍ views : <code>{views}</code>\n\n❍ by <<a href="t.me/MD_songbot">MD Music Bot</a>"
+    cap =f"** ❍ Title :** <code>{title[:35]}</code>\n**❍ duration :** <code>{duration}</code>\n**❍ views :** <code>{views}</code>\n\n❍ by <a href="t.me/MD_songbot">MD Music Bot</a>"
     try:
         
         download = audio.download(filename=f"{str(user_id)}")
