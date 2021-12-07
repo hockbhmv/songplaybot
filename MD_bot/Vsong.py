@@ -242,7 +242,7 @@ async def ytmusic(client, message: Message):
             infoo = ytdl.extract_info(url, False)
             duration = round(infoo["duration"] / 60)
 
-            if duration > DURATION_LIMIT:
+            if duration > 8:
                 await pablo.edit(
                     f"❌ Videos longer than {DURATION_LIMIT} minute(s) aren't allowed, the provided video is {duration} minute(s)"
                 )
@@ -250,7 +250,7 @@ async def ytmusic(client, message: Message):
                 return
             ytdl_data = ytdl.extract_info(url, download=True)
 
-    except Exception:
+    except Exception as e:
         await pablo.edit( f"**Failed To Download** \n**Error :** `{str(e)}`")
         is_downloading = False
         return
