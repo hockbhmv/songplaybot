@@ -17,7 +17,11 @@ CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
 
 @Client.on_message(filters.command("start"))
 async def start(bot, message):
-  await message.reply_text(text = f"hi how are you")
+  user = message.from_user.first_name
+  await message.reply_text(text = f"ഹായ് {user},\nനിലവിൽ എന്റെ അഡ്മിൻ എന്നെ ഉണ്ടാക്കുന്നു\n\n ദയവായി പിന്നീട് വരൂ")
+
+
+
   
 
 def yt_search(song):
