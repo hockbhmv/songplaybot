@@ -89,7 +89,7 @@ async def song(client, message):
             [
                 InlineKeyboardButton(
                     text="check pm",
-                    url=f"pm#{str(user_id)}.mp3",
+                    callback_data=f"pm#{str(user_id)}.mp3",
                 )
             ]
         ]
