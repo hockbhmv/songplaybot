@@ -8,7 +8,8 @@ import logging
 from youtube_search import YoutubeSearch
 from pytube import YouTube
 import requests
-from youtubesearchpython import VideosSearch
+from youtubesearchpython import VideosSearch 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 import re
@@ -98,3 +99,7 @@ async def song(client, message):
     )
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
+    
+@Client.on_callback_query(filters.regex('^imdb'))
+async def imdb_callback(bot: Client, query: CallbackQuery):
+    i, movie = query.data.split('#')
