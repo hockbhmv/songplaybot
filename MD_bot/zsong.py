@@ -121,3 +121,4 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         performer=f"[MD MUSIC BOT]",
         
     )
+    os.remove(f"{str(user_id)}.mp3")
