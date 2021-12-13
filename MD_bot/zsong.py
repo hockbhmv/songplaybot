@@ -88,7 +88,7 @@ async def song(client, message):
     btn = [
             [
                 InlineKeyboardButton(
-                    text="send me in pm",
+                    text="send in my pm",
                     callback_data=f"pm#{str(user_id)}.mp3",
                 )
             ]
