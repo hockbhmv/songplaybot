@@ -89,7 +89,7 @@ async def song(client, message):
             [
                 InlineKeyboardButton(
                     text="send me in pm",
-                    callback_data=f"pm#{str(user_id)}.mp3",
+                    callback_data=f"pm#{str(user_id)}",
                 )
             ]
         ]
@@ -121,4 +121,4 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         performer=f"[MD MUSIC BOT]",
         
     )
-    os.remove(f"{str(user_id)}.mp3")
+    os.remove(f"{str(user_id)}")
