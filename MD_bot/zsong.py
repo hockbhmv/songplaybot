@@ -104,8 +104,8 @@ async def song(client, message):
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id=message.message_id,
-        reply_markup=InlineKeyboardMarkup(btn)),
-    )
+        reply_markup=InlineKeyboardMarkup(btn))
+    
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
     
