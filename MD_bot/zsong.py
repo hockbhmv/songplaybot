@@ -96,14 +96,14 @@ async def song(client, message):
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     await client.send_audio(
-        chat_id=message.chat.id,
+        chat_id=query.from_user.id,
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
         title=str(yt.title),
         caption = cap,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
-        reply_to_message_id=message.message_id,
+        reply_to_message_id= query.message_id,
         reply_markup=InlineKeyboardMarkup(btn))
     
     await status.delete()
@@ -114,7 +114,7 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     
     await bot.send_audio(
-        chat_id=message.chat.id,
+        chat_id=query.chat.id,
         audio=movie,
         duration=int(yt.length),
         title=str(yt.title),
