@@ -113,7 +113,7 @@ async def song(client, message):
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, movie = query.data.split('#')
     
-    await client.send_audio(
+    await bot.send_audio(
         chat_id=message.chat.id,
         audio=movie,
         duration=int(yt.length),
