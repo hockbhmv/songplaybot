@@ -116,8 +116,8 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
     await bot.send_audio(
         chat_id=query.from_user.id,
         audio=movie, 
-        caption = cap,
-        thumb=thumb_name,
+        caption = "testing",
+        
         performer=f"[MD MUSIC BOT]",
         
     )
