@@ -121,5 +121,5 @@ async def imdb_callback(bot: Client, query: CallbackQuery):
         caption = cap,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
-        reply_to_message_id=.message_id,
+        reply_to_message_id=query.chat_id,
     )
