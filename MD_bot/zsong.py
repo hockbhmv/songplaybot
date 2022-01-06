@@ -36,7 +36,7 @@ def yt_search(song):
         return url
 def get_arg(message):
     msg = message.text
-    msg = msg.replace(" ", "", 1) if msg[1] == " " else msg
+    msg = msg.replace(" ", 1) if msg[1] == " " else msg
     split = msg[1:].replace("\n", " \n").split(" ")
     if " ".join(split[1:]).strip() == "":
         return ""
@@ -44,7 +44,7 @@ def get_arg(message):
       
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def without_cmd(bot, msg):
-   arg = get_arg(msg) + f"{msg}" + "song"
+   arg = get_arg(msg) + "song"
    if msg.text.startswith("/"):
       return 
    else: 
