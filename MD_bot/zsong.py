@@ -88,7 +88,7 @@ async def song(client, message):
     
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
-    await client.send_audio(
+    k = await client.send_audio(
         chat_id=message.chat.id,
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
@@ -109,5 +109,6 @@ async def song(client, message):
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, msg, db = query.data.split('#')
     msg = await bot.get_messages(db, int(msg))
+    await query.answer("The song is sended to your pm", show_alert=true)
     await msg.copy(int(query.from_user.id))
     
