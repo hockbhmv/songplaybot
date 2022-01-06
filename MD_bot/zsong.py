@@ -109,5 +109,5 @@ async def song(client, message):
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, msg, db = query.data.split('#')
     msg = await bot.get_messages(db, int(msg))
-    await msg.copy(int(query.from_user.id)
+    await msg.copy(int(query.from_user.id))
     
