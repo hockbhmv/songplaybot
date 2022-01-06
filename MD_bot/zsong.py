@@ -43,7 +43,7 @@ def get_arg(message):
     return " ".join(split[1:])        
       
 @Client.on_message(filters.text & filters.group & filters.incoming)
-async def without(bot, msg):
+async def withoutcmd(bot, msg):
    if msg.text.startwith("/"):
       return 
    else: 
@@ -51,7 +51,7 @@ async def without(bot, msg):
    return    
 
 @Client.on_message(filters.command(["music", "song"]))
-async def with(bot, msg):
+async def withcmd(bot, msg):
    msg = get_arg(msg) + " " + "song"
    if msg.startwith(" "):
        await msg reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>
