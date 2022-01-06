@@ -85,14 +85,7 @@ async def song(client, message):
         await status.edit("Failed to download song 😶")
         
         return ""
-    btn = [
-            [
-                InlineKeyboardButton(
-                    text="send in my pm",
-                    callback_data=f"pm#{str(user_id)}.mp3",
-                )
-            ]
-        ]
+    
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     await client.send_audio(
@@ -103,22 +96,18 @@ async def song(client, message):
         caption = cap,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
-        reply_to_message_id= message.message_id,
-        reply_markup=InlineKeyboardMarkup(btn))
-    
+        reply_to_message_id= message.message_id)
+    db = -1001553356176
+    await k.copy(int(db)
+    can = [[InlineKeyboardButton('🔰 send in pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+    reply = InlineKeyboardMarkup(can)
+    await k.edit_reply_markup(InlineKeyboardMarkup(can))
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
     
 @Client.on_callback_query(filters.regex('^pm'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
-    i, movie = query.data.split('#')
+    i, msg, db = query.data.split('#')
+    msg = await bot.get_messages(db, int(msg))
+    await msg.copy(int(query.from_user.id)
     
-    await bot.send_audio(
-        chat_id=query.from_user.id,
-        audio=movie, 
-        caption = "testing",
-        
-        performer=f"[MD MUSIC BOT]",
-        
-    )
-    os.remove(f"{str(user_id)}")
