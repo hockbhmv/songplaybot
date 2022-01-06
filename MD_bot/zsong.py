@@ -122,7 +122,7 @@ async def song(client, message, args):
 @Client.on_callback_query(filters.regex('^pm'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, msg, db = query.data.split('#')
-    msg = await bot.get_messages(db, msg)
+    msg = await bot.get_messages(db, int(msg))
     await query.answer("The song is sended to your pm", show_alert=True)
     await msg.copy(int(query.from_user.id))
     
