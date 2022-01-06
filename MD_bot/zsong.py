@@ -53,7 +53,7 @@ async def without_cmd(bot, msg):
 
 @Client.on_message(filters.command(["music", "song"]))
 async def withcmd(bot, msg):
-   arg = get_arg(msg) + " " + "song"
+   arg = get_arg(msg) + "{msg}" + "song"
    if msg.startswith(" "):
        await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
        return
