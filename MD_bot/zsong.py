@@ -45,7 +45,7 @@ def get_arg(message):
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def without_cmd(bot, msg):
    message = get_arg(msg) + " " + "song"
-   if message.text.startswith("/"):
+   if msg.text.startswith("/"):
       return 
    else: 
       await song(bot, message)
