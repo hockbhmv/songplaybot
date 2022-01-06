@@ -54,7 +54,7 @@ async def withoutcmd(bot, msg):
 async def withcmd(bot, msg):
    msg = get_arg(msg) + " " + "song"
    if msg.startwith(" "):
-       await msg reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>
+       await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
        return
    else:
        await song(bot, msg)
