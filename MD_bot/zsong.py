@@ -43,7 +43,7 @@ def get_arg(message):
     return " ".join(split[1:])        
       
 @Client.on_message(filters.text & filters.group & filters.incoming)
-async def withoutcmd(bot, message):
+async def without_cmd(client, message):
    if message.text.startwith("/"):
       return 
    else: 
