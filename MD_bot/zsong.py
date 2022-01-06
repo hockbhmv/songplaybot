@@ -42,23 +42,35 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])        
       
-      
-      
+@Client.on_message(filters.text & filters.group & filters.incoming)
+async def without(bot, msg):
+   if msg.text.startwith("/"):
+      return 
+   else: 
+      await song(bot, msg)
+   return    
+
 @Client.on_message(filters.command(["music", "song"]))
+async def with(bot, msg):
+   msg = get_arg(msg) + " " + "song"
+   if msg.startwith(" "):
+       await msg reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>
+       return
+   else:
+       await song(bot, msg)
+   return 
+                            
 async def song(client, message):
     chat_id = message.chat.id
     user_id = message.from_user["id"]
  
-    args = get_arg(message) + " " + "song"
-    if args.startswith(" "):
-        await message.reply("Enter a song name.\n\n **example:**\n<code>/song Clay Love Nwantiti</code>")
-        return ""
+    args = message
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
-    await status.edit("<code>🔎searching the song....\n  Please wait ⏳ for few seconds</code>")
+    await status.edit("<code>🔄 uploading..</code>")
     video_link = yt_search(args)
     if not video_link:
-        await status.edit("✖️ 𝐅𝐨𝐮𝐧𝐝 𝐍𝐨𝐭𝐡𝐢𝐧𝐠. 𝐒𝐨𝐫𝐫𝐲.\n\n𝐓𝐫𝐲 𝐀𝐧𝐨𝐭𝐡𝐞𝐫 𝐊𝐞𝐲𝐰𝐨𝐫𝐤 𝐎𝐫 𝐌𝐚𝐲𝐛𝐞 𝐒𝐩𝐞𝐥𝐥.\n\nEg.`/song Faded`")
+        await status.edit(f"I couldn't find song with {args}")
         return ""
     yt = YouTube(video_link)
     results = []
@@ -108,7 +120,7 @@ async def song(client, message):
 @Client.on_callback_query(filters.regex('^pm'))
 async def imdb_callback(bot: Client, query: CallbackQuery):
     i, msg, db = query.data.split('#')
-    msg = await bot.get_messages(db, int(msg))
+    msg = await bot.get_messages(db, msg)
     await query.answer("The song is sended to your pm", show_alert=True)
     await msg.copy(int(query.from_user.id))
     
