@@ -50,7 +50,7 @@ async def without_cmd(bot, msg):
       return 
    else: 
       await song(bot, msg, arg)
-   return    
+   retu
 
 @Client.on_message(filters.command(["music", "song"]))
 async def withcmd(bot, msg):
