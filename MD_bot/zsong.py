@@ -47,10 +47,9 @@ async def song(client, message):
     msg = message
     if msg.text.startswith("/"):
       arg = get_arg(msg) + " " + "song"
-      if msg.startswith(" "):
-         await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
-      return
-    else: 
+      if arg.startswith(" "):
+         return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
+    if not msg.text.startswith("/")
       k = msg.text
       arg = get_arg(msg) + k + "song"
       if not arg:
