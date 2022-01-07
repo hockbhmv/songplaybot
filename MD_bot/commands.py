@@ -1,7 +1,8 @@
 import asyncio 
 import pyrogram
 from pyrogram import Client, filters 
-from .database import db
+from .database import db 
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 photo = "https://telegra.ph/file/7c987afbecbb3e9dcea5a.jpg"
 db = -1001553356176
    
@@ -10,7 +11,7 @@ async def gstart(bot, cmd):
    if cmd.chat.type in ['group', 'supergroup']:
        buttons = [[InlineKeyboardButton('🤖 Bot Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')],[InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/MD_songbot?start=help")]]
        reply_markup = InlineKeyboardMarkup(buttons)
-       await message.reply(f"Hey,{cmd.chat.title}\ni am a song bot i can give song in your group")
+       await message.reply(f"Hey,{cmd.chat.title}\ni am a song bot i can give song in your group", reply_markup)
        await asyncio.sleep(2) 
        if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
