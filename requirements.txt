@@ -7,7 +7,9 @@ requests
 pyromod
 pytube
 tswift
-
+#==========
+motor==2.4.0
+#==========
 #forcheck vsong 
 aiofiles
 aiohttp
