@@ -49,7 +49,6 @@ async def song(client, message):
       args = get_arg(msg) + " " + "song"
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
- #   if not msg.text.startswith("/"):
     else:
       k = msg.text
       args = get_arg(msg) + k + "song"
@@ -103,8 +102,8 @@ async def song(client, message):
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id= message.message_id)
     db = -1001553356176
-    await k.copy(int(db))
-    can = [[InlineKeyboardButton('🔰 send in pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+    m = await k.copy(int(db))
+    can = [[InlineKeyboardButton('🔰 send in pm 🔰', callback_data=f"pm#{m.message_id}#{db}")]]
     reply = InlineKeyboardMarkup(can)
     await k.edit_reply_markup(InlineKeyboardMarkup(can))
     await status.delete()
