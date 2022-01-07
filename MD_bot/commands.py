@@ -11,13 +11,14 @@ async def gstart(bot, cmd):
    if cmd.chat.type in ['group', 'supergroup']:
        buttons = [[InlineKeyboardButton('🤖 Bot Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')],[InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/MD_songbot?start=help")]]
        reply_markup = InlineKeyboardMarkup(buttons)
-       await message.reply(f"Hey,{cmd.chat.title}\ni am a song bot i can give song in your group", reply_markup)
+       await cmd.reply(f"Hey,{cmd.chat.title}\ni am a song bot i can give song in your group", reply_markup)
        await asyncio.sleep(2) 
        if not await db.get_chat(cmd.chat.id):
             total=await bot.get_chat_members_count(cmd.chat.id)
             channel_id = cmd.chat.id
             group_id = cmd.chat.id
             title = cmd.chat.title
+            Unknown = "Unknown"
             await db.add_chat(cmd.chat.id, cmd.chat.title)
             await bot.send_message(db, f"#new group:\nTitle - {cmd.chat.title}\nId - {cmd.chat.id}\nTotal members - {total} added by - {Unknown}")
        return
@@ -34,7 +35,7 @@ async def gstart(bot, cmd):
    return
 
 @Client.on_message(filters.command("songwithcmd"))
-async def withcmd(bot, cmd):
+async def withcmd(bot, message):
    if ' ' in message.text:
         k = await message.reply('updating your data')
         r, sts = message.text.split(None, 1)
