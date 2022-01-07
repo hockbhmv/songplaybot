@@ -53,7 +53,7 @@ async def song(client, message):
     else:
       k = msg.text
       args = get_arg(msg) + k + "song"
-      if not arg:
+      if not args:
         await msg.reply("ℹ️ error occurred")
       return
     chat_id = message.chat.id
