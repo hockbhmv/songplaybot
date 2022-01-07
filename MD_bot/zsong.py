@@ -47,7 +47,7 @@ async def song(client, message):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
       configs = await db.find_chat(chat_id)
-      withoutcmd = configs["chat_mode"]["song"]
+      song = configs["chat_mode"]["song"]
       if song == "True":
          return
       k = msg.text
