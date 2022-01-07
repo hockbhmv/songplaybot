@@ -9,6 +9,7 @@ pytube
 tswift
 #==========
 motor==2.4.0
+pymongo[srv]==3.11.4
 #==========
 #forcheck vsong 
 aiofiles
