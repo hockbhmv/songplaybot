@@ -44,7 +44,7 @@ def get_arg(message):
 
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
-   
+    msg = message
     if msg.text.startswith("/"):
       arg = get_arg(msg) + " " + "song"
       if msg.startswith(" "):
