@@ -26,6 +26,9 @@ class Database:
                 is_disabled=False,
                 reason="",
             ),
+            chat_mode=dict(
+                song= True,
+            ),
         )
  
     async def add_user(self, id, name):
@@ -63,7 +66,18 @@ class Database:
         chat = self.new_group(chat, title)
         await self.grp.insert_one(chat)
     
-
+    async def song(self, id):
+        chat_mode=dict(
+            song =True,
+            )
+        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
+     
+    async def notsong(self, id):
+        chat_mode=dict(
+            song=False,
+            )
+        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
+        
     async def get_chat(self, chat):
         chat = await self.grp.find_one({'id':int(chat)})
         if not chat:
