@@ -27,7 +27,7 @@ async def gstart(bot, cmd):
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply_photo(
             photo=photo, 
-            caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group"
+            caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
             parse_mode="html",
             reply_markup=reply_markup )
    return
