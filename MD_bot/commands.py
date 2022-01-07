@@ -37,6 +37,7 @@ async def withcmd(bot, cmd):
    if ' ' in message.text:
         k = await message.reply('updating your data')
         r, sts = message.text.split(None, 1)
+        chat = cmd.chat.id
         await asyncio.sleep(1)
         if sts =="True","true":
             await db.song(int(chat))
