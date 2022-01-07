@@ -2,8 +2,9 @@ import asyncio
 import pyrogram
 from pyrogram import Client, filters 
 from .database import db
-
-
+photo = https://telegra.ph/file/7c987afbecbb3e9dcea5a.jpg
+db = -1001553356176
+   
 @Client.on_message(filters.command("start"))
 async def gstart(bot, cmd):
    if cmd.chat.type in ['group', 'supergroup']:
