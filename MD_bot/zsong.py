@@ -1,4 +1,5 @@
 from pyrogram import Client, filters
+from .database import db
 from os import environ
 import asyncio
 import os
@@ -16,14 +17,7 @@ import re
 id_pattern = re.compile(r'^.\d+$')
 CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
 
-@Client.on_message(filters.command("start"))
-async def start(bot, message):
-  user = message.from_user.first_name
-  await message.reply_text(text = f"<code>ഹായ് {user},\nനിലവിൽ എന്റെ അഡ്മിൻ എന്നെ ഉണ്ടാക്കുന്നു\n\n ദയവായി പിന്നീട് വരൂ</code>")
-
-
-
-  
+ 
 
 def yt_search(song):
     videosSearch = VideosSearch(song, limit=1)
@@ -45,18 +39,23 @@ def get_arg(message):
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
     msg = message
+    chat_id = message.chat.id
+    user_id = message.from_user["id"]
     if msg.text.startswith("/"):
       args = get_arg(msg) + " " + "song"
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
+      configs = await db.find_chat(chat_id)
+      withoutcmd = configs["chat_mode"]["song"]
+      if song == "True":
+         return
       k = msg.text
       args = get_arg(msg) + k + "song"
       if not args:
          return await msg.reply("ℹ️ error occurred")
       
-    chat_id = message.chat.id
-    user_id = message.from_user["id"]
+    
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
     await status.edit("<code>🔄 uploading..</code>")
