@@ -47,15 +47,15 @@ async def song(client, message):
     msg = message
     if msg.text.startswith("/"):
       args = get_arg(msg) + " " + "song"
-      if arg.startswith(" "):
+      if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
  #   if not msg.text.startswith("/"):
     else:
       k = msg.text
       args = get_arg(msg) + k + "song"
       if not args:
-        await msg.reply("ℹ️ error occurred")
-      return
+         return await msg.reply("ℹ️ error occurred")
+      
     chat_id = message.chat.id
     user_id = message.from_user["id"]
     status = await message.reply("<code>processing...</code>")
