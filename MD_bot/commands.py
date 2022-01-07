@@ -31,3 +31,19 @@ async def gstart(bot, cmd):
             parse_mode="html",
             reply_markup=reply_markup )
    return
+
+@Client.on_message(filters.command("songwithcmd"))
+async def withcmd(bot, cmd):
+   if ' ' in message.text:
+        k = await message.reply('updating your data')
+        r, sts = message.text.split(None, 1)
+        await asyncio.sleep(1)
+        if sts =="True","true":
+            await db.song(int(chat))
+            await k.edit("successful")
+        if sts =="False","false":
+            await db.withsong(int(chat))
+            await k.edit("successful")
+        
+   
+   
