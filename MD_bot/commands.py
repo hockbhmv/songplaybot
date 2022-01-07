@@ -42,7 +42,7 @@ async def withcmd(bot, cmd):
             await db.song(int(chat))
             await k.edit("successful")
         if sts =="False","false":
-            await db.withsong(int(chat))
+            await db.notsong(int(chat))
             await k.edit("successful")
         
    
