@@ -41,32 +41,23 @@ def get_arg(message):
     if " ".join(split[1:]).strip() == "":
         return ""
     return " ".join(split[1:])        
-      
+
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def without_cmd(bot, msg):
-   k = msg.text
-   arg = get_arg(msg) + k + "song"
-   if msg.text.startswith("/"):
-      return 
-   else: 
-      await song(bot, msg, arg)
-   retu
-
-@Client.on_message(filters.command(["music", "song"]))
-async def withcmd(bot, msg):
-   arg = get_arg(msg) + "{msg}" + "song"
-   if msg.startswith(" "):
-       await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
-       return
-   else:
-       await song(bot, msg, arg)
-   return 
-                            
-async def song(client, message, args):
+   
+    if msg.text.startswith("/"):
+      arg = get_arg(msg) + " " + "song"
+      if msg.startswith(" "):
+         await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
+      return
+    else: 
+      k = msg.text
+      arg = get_arg(msg) + k + "song"
+      if not arg:
+        await msg.reply("ℹ️ error occurred")
+      return
     chat_id = message.chat.id
     user_id = message.from_user["id"]
- 
-   # args = message
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
     await status.edit("<code>🔄 uploading..</code>")
