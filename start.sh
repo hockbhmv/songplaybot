@@ -4,7 +4,7 @@ then
   git clone https://github.com/hockbhmv/songplaybot.git /songplaybot
 else
   echo "Cloning Custom Repo from $UPSTREAM_REPO "
-  git clone $UPSTREAM_REPO /EvaMaria
+  git clone $UPSTREAM_REPO /songplaybot
 fi
 cd /songplaybot
 pip3 install -U -r requirements.txt
