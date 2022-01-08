@@ -1,5 +1,6 @@
 import io
-import os
+import os 
+import requests
 from pyrogram import filters
 from pyrogram import Client as pbot
 
