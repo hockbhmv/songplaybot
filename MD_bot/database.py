@@ -24,11 +24,7 @@ class Database:
             id = id,
             title = title,
             chat_status=dict(
-                is_disabled=False,
-                reason="",
-            ),
-            chat_mode=dict(
-                song= True,
+                song = True,
             ),
         )
  
@@ -68,13 +64,13 @@ class Database:
         await self.grp.insert_one(chat)
     
     async def song(self, id):
-        chat_mode=dict(
+        chat_status=dict(
             song =True,
             )
         await self.grp.update_one({'id': int(id)}, {'$set': {'chat_mode': chat_mode}})
      
     async def notsong(self, id):
-        chat_mode=dict(
+        chat_status=dict(
             song=False,
             )
         await self.grp.update_one({'id': int(id)}, {'$set': {'chat_mode': chat_mode}})
