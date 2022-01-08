@@ -57,8 +57,8 @@ async def withcmd(bot, message):
         await k and message.delete()
    return
 
-@Client.on_callback_query()
-async def delete_all_index_confirm(bot, message):
+@Client.on_callback_query(filters.regex(r'^start'))
+async def startquery(bot, message):
    if message.data =="start":
        buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data="help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
        await message.message.edit_text(
@@ -66,7 +66,8 @@ async def delete_all_index_confirm(bot, message):
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
-   elif message.data =="help":
+@Client.on_callback_query(filters.regex(r'^help'))
+async def helpquery(bot, message):
        buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start')]]
        await message.message.edit_text(
           text="please add me in your group and send a song name i will give that song in group",
