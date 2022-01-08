@@ -25,7 +25,7 @@ class Database:
             id = id,
             title = title,
             chat_status=dict(
-                song = True,
+                song=True,
             ),
         )
  
