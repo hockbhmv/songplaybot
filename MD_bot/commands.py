@@ -36,6 +36,11 @@ async def gstart(bot, cmd):
 
 @Client.on_message(filters.command("songwithcmd"))
 async def withcmd(bot, message):
+   chat = message.chat.id
+   user = message.from_user.id
+   st = await bot.get_chat_member(chat, user)
+   if not (st.status == "creator") or (st.status == "administrator"):
+      return
    if ' ' in message.text:
         r, sts = message.text.split(None, 1)
         chat = message.chat.id
