@@ -1,25 +1,23 @@
-from pyrogram import Client, filters
-
-from os import environ
-import asyncio
 import os
+import re
 import time
-import youtube_dl
-import logging
-from youtube_search import YoutubeSearch
-from pytube import YouTube
+import asyncio 
+import logging 
 import requests
+import youtube_dl
+from os import environ 
+from .database import db 
+from pytube import YouTube 
+from pyrogram import Client, filters
+from youtube_search import YoutubeSearch 
 from youtubesearchpython import VideosSearch 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
-from .database import db
+database =db
+
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-import re
-id_pattern = re.compile(r'^.\d+$')
-CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
-
  
-database =db
+
 def yt_search(song):
     videosSearch = VideosSearch(song, limit=1)
     result = videosSearch.result()
@@ -31,7 +29,7 @@ def yt_search(song):
         return url
 def get_arg(message):
     msg = message.text
-    msg = msg.replace(" ", 1) if msg[1] == " " else msg
+    msg = msg.replace(" "," ",1) if msg[1] == " " else msg
     split = msg[1:].replace("\n", " \n").split(" ")
     if " ".join(split[1:]).strip() == "":
         return ""
