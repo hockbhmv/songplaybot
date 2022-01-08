@@ -37,18 +37,15 @@ async def gstart(bot, cmd):
 @Client.on_message(filters.command("songwithcmd"))
 async def withcmd(bot, message):
    if ' ' in message.text:
-        k = await message.reply('updating your data')
         r, sts = message.text.split(None, 1)
         chat = message.chat.id
-        await asyncio.sleep(1)
-        if sts =="True" or "true":
-            await db.song(chat)
+        if sts =="True":
+            await db.song(int(chat))
             await asyncio.sleep(1)
-            await k.edit("successful")
-        if sts =="False" or "false":
-            await db.notsong(chat)
-            await asyncio.sleep(1)
-            await k.edit("successful")
+            k =await message.reply("successfull, Now bot send song only with using command /song")
+        if sts =="False":
+            await db.notsong(int(chat))
+            k =await message.reply("successfull, Now bot send song without command")
         await asyncio.sleep(5)
         await k.delete()
    
