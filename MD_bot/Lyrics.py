@@ -1,45 +1,39 @@
 import io
 import os
+from pyrogram import filters
 
 from pyrogram import filters
-from tswift import Song
+
+
+
 
 from pyrogram import Client as pbot
+API = "https://apis.xditya.me/lyrics?song="
 
 
+def search(song):
+        r = requests.get(API + song)
+        find = r.json()
+        return find
+       
+def lyrics(song):
+        fin = search(song)
+        text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
+        text += f'`{fin["lyrics"]}`'
+        text += '\n\n\n💙 Thanks to you me'
+        return text
 
 
 
 
 @pbot.on_message(filters.command(["lyric", "lyrics"]))
 async def _(client, message):
-    lel = await message.reply("Searching For Lyrics.....")
+    k = await message.reply("Searching For Lyrics.....")
     query = message.text
-    if not query:
-        await lel.edit("`What I am Supposed to find `")
-        return
-
-    song = ""
-    song = Song.find_song(query)
-    if song:
-        if song.lyrics:
-            reply = song.format()
-        else:
-            reply = "Couldn't find any lyrics for that song! try with artist name along with song if still doesnt work try `.glyrics`"
-    else:
-        reply = "lyrics not found! try with artist name along with song if still doesnt work try `.glyrics`"
-
-    if len(reply) > 4095:
-        with io.BytesIO(str.encode(reply)) as out_file:
-            out_file.name = "lyrics.text"
-            await client.send_document(
-                message.chat.id,
-                out_file,
-                force_document=True,
-                allow_cache=False,
-                caption=query,
-                reply_to_msg_id=message.message_id,
-            )
-            await lel.delete()
-    else:
-        await lel.edit(reply)  
+    rpl = lyrics(song)
+        await k.delete()
+        try:
+            await k.delete()
+            await client.send_message(chat_id, text = rpl, reply_to_message_id = message.message_id)
+        except Exception as e:
+        	await message.reply_text(f"I Can't Find A Song With `{query}`", quote = True)
