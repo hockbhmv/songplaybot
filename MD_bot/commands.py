@@ -5,8 +5,9 @@ from .database import db
 from info import photo 
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-photo = photo
+
 log = -1001553356176
+photo = "https://telegra.ph/file/156e945a81a2160012c2c.jpg"
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
@@ -57,7 +58,7 @@ async def withcmd(bot, message):
         await k and message.delete()
    return
 
-@Client.on_callback_query(filters.regex(r'^start'))
+@Client.on_callback_query()
 async def startquery(bot, message):
    if message.data =="start":
        buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data="help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
@@ -66,8 +67,7 @@ async def startquery(bot, message):
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
-@Client.on_callback_query(filters.regex(r'^help'))
-async def helpquery(bot, message):
+   if message.data =="help":
        buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start')]]
        await message.message.edit_text(
           text="please add me in your group and send a song name i will give that song in group",
