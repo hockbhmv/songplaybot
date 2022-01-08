@@ -48,7 +48,7 @@ async def song(client, message):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
       configs = await database.get_chat(int(chat_id))
-      song = configs["chat_mode"]["song"]
+      song = configs["chat_status"]["song"]
       if msg.text.startswith("/"):
          return
       if song == "True":
