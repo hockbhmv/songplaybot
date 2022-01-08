@@ -68,13 +68,13 @@ class Database:
         chat_status=dict(
             song =True,
             )
-        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_mode': chat_mode}})
+        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
      
     async def notsong(self, id):
         chat_status=dict(
             song=False,
             )
-        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_mode': chat_mode}})
+        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
         
     async def get_chat(self, chat):
         chat = await self.grp.find_one({'id':int(chat)})
