@@ -3,7 +3,7 @@ import pyrogram
 from pyrogram import Client, filters 
 from .database import db 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-photo = "https://telegra.ph/file/7c987afbecbb3e9dcea5a.jpg"
+from info import photo 
 log = -1001553356176
    
 @Client.on_message(filters.command("start"))
