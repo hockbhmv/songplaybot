@@ -49,6 +49,8 @@ async def song(client, message):
     else:
       configs = await client.get_chat(int(chat_id))
       song = configs["chat_mode"]["song"]
+      if msg.text.startswith("/"):
+         return
       if song == "True":
          return
       k = msg.text
