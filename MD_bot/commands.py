@@ -39,7 +39,7 @@ async def gstart(bot, cmd):
             reply_markup=reply_markup )
    return
 
-@Client.on_message(filters.command("songwithcmd") & filters.group)
+@Client.on_message(filters.command("songwithcmd"))# & filters.group
 async def withcmd(bot, message):
    chat = message.chat.id
    user = message.from_user.id
