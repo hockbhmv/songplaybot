@@ -30,16 +30,17 @@ async def gstart(bot, cmd):
    if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(log, f"#NEWUSER: \nName - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id}")
-        buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await cmd.reply_photo(
-            photo=photo, 
-            caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
-            parse_mode="html",
-            reply_markup=reply_markup )
    
+   buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
+   reply_markup = InlineKeyboardMarkup(buttons)
+   await cmd.reply_photo(
+           photo=photo, 
+           caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
+           parse_mode="html",
+           reply_markup=reply_markup )
+   return
 
-@Client.on_message(filters.command("songwithcmd"))# & filters.group
+@Client.on_message(filters.command("songwithcmd") & filters.group)
 async def withcmd(bot, message):
    chat = message.chat.id
    user = message.from_user.id
