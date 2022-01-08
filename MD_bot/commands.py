@@ -4,7 +4,7 @@ from pyrogram import Client, filters
 from .database import db 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 photo = "https://telegra.ph/file/7c987afbecbb3e9dcea5a.jpg"
-db = -1001553356176
+log = -1001553356176
    
 @Client.on_message(filters.command("start"))
 async def gstart(bot, cmd):
@@ -20,11 +20,11 @@ async def gstart(bot, cmd):
             title = cmd.chat.title
             Unknown = "Unknown"
             await db.add_chat(cmd.chat.id, cmd.chat.title)
-            await bot.send_message(db, f"#new group:\nTitle - {cmd.chat.title}\nId - {cmd.chat.id}\nTotal members - {total} added by - {Unknown}")
+            await bot.send_message(log, f"#new group:\nTitle - {cmd.chat.title}\nId - {cmd.chat.id}\nTotal members - {total} added by - {Unknown}")
        return
    if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
-        await bot.send_message(db, f"#NEWUSER: \nName - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id}")
+        await bot.send_message(log, f"#NEWUSER: \nName - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id}")
         buttons = [[InlineKeyboardButton('🤖 Bot Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')],[InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/MD_songbot?start=help")]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply_photo(
