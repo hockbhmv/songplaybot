@@ -8,7 +8,8 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
-
+        self.cache = {}
+        
     def new_user(self, id, name):
         return dict(
             id = id,
@@ -81,5 +82,16 @@ class Database:
             return False
         else:
             return chat.get('chat_status')
+        
+    async def find_chat(self, chat: int):
+        connections = self.cache.get(str(chat))
+        if connections is not None:
+            return connections
+        connections = await self.grp.find_one({'id': chat})
+        if connections:
+            self.cache[str(chat)] = connections
+            return connections
+        else: 
+            return self.new_group(None, None)
           
 db= Database(DB, "song-bot")
