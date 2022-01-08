@@ -2,10 +2,10 @@ import asyncio
 import logging 
 import pyrogram 
 from .database import db 
-from info import photo as PIC
+from info import photo 
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
+photo = photo
 log = -1001553356176
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -32,7 +32,7 @@ async def gstart(bot, cmd):
         buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply_photo(
-            photo=PIC, 
+            photo=photo, 
             caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
             parse_mode="html",
             reply_markup=reply_markup )
