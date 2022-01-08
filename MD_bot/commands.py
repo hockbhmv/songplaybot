@@ -45,7 +45,7 @@ async def withcmd(bot, message):
             k =await message.reply("successfull, Now bot send song only with using command /song")
         if sts =="False":
             await db.notsong(int(chat))
-            k =await message.reply("successfull, Now bot send song without command")
+            k =await message.reply("successfull, Now bot send song without any commands")
         await asyncio.sleep(5)
         await k.delete()
    
