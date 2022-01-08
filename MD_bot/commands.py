@@ -1,11 +1,15 @@
 import asyncio 
-import pyrogram
-from pyrogram import Client, filters 
+import logging 
+import pyrogram 
 from .database import db 
+from info import photo as PIC
+from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from info import photo 
+
 log = -1001553356176
-   
+logging.getLogger().setLevel(logging.ERROR)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
 @Client.on_message(filters.command("start"))
 async def gstart(bot, cmd):
    if cmd.chat.type in ['group', 'supergroup']:
@@ -28,7 +32,7 @@ async def gstart(bot, cmd):
         buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply_photo(
-            photo=photo, 
+            photo=PIC, 
             caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
             parse_mode="html",
             reply_markup=reply_markup )
