@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from MD_bot.database import db
+
 from os import environ
 import asyncio
 import os
@@ -10,7 +10,8 @@ from youtube_search import YoutubeSearch
 from pytube import YouTube
 import requests
 from youtubesearchpython import VideosSearch 
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
+from .database import db
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 import re
@@ -18,7 +19,7 @@ id_pattern = re.compile(r'^.\d+$')
 CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
 
  
-
+database =db
 def yt_search(song):
     videosSearch = VideosSearch(song, limit=1)
     result = videosSearch.result()
@@ -46,7 +47,7 @@ async def song(client, message):
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
-      configs = await db.find_chat(chat_id)
+      configs = await database.find_chat(chat_id)
       song = configs["chat_mode"]["song"]
       if song == "True":
          return
