@@ -7,7 +7,7 @@ class Database:
         self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
         self.db = self._client[database_name]
         self.col = self.db.users
-.       self.grp = self.db.groups
+        self.grp = self.db.groups
 
     def new_user(self, id, name):
         return dict(
