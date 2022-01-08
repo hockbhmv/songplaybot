@@ -25,7 +25,7 @@ async def gstart(bot, cmd):
    if not await db.is_user_exist(cmd.from_user.id): 
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(log, f"#NEWUSER: \nName - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id}")
-        buttons = [[InlineKeyboardButton('🤖 Bot Updates', url='https://t.me/joinchat/MtD0j4FOqbFmYmE1')],[InlineKeyboardButton('ℹ️ Help', url=f"https://t.me/MD_songbot?start=help")]]
+        buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await cmd.reply_photo(
             photo=photo, 
@@ -51,5 +51,21 @@ async def withcmd(bot, message):
             k =await message.reply("successfull, Now bot send song without any commands")
         await asyncio.sleep(3)
         await k and message.delete()
-   
-   
+   return
+
+@Client.on_callback_query()
+async def delete_all_index_confirm(bot, message):
+   if message.data =="start":
+       buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data="help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
+       await message.message.edit_text(
+          text= f"Hi {message.from_user.first_name},\ni am a song bot i can give song in your group",
+          reply_markup = InlineKeyboardMarkup(buttons),
+          parse_mode='html')
+      
+   elif message.data =="help":
+       buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start')]]
+       await message.message.edit_text(
+          text="please add me in your group and send a song name i will give that song in group",
+          reply_markup = InlineKeyboardMarkup(buttons),
+          parse_mode='html')
+          
