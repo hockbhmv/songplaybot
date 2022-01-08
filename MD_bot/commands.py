@@ -7,7 +7,6 @@ from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 log = -1001553356176
-photo = "https://telegra.ph/file/156e945a81a2160012c2c.jpg"
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
