@@ -1,5 +1,5 @@
 from pyrogram import Client, filters
-from .database import db
+from MD_bot.database import db
 from os import environ
 import asyncio
 import os
