@@ -15,7 +15,7 @@ def lyrics(song):
         fin = search(song)
         text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
         text += f'`{fin["lyrics"]}`'
-        text += '\n\n\n💙 Thanks to you me'
+        text += '\n\n\n💙 Thanks for using me'
         return text
 
 
