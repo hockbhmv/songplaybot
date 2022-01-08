@@ -39,7 +39,7 @@ async def withcmd(bot, message):
    if ' ' in message.text:
         k = await message.reply('updating your data')
         r, sts = message.text.split(None, 1)
-        chat = cmd.chat.id
+        chat = message.chat.id
         await asyncio.sleep(1)
         if sts ==["True","true"]:
             await db.song(int(chat))
@@ -47,6 +47,6 @@ async def withcmd(bot, message):
         if sts ==["False","false"]:
             await db.notsong(int(chat))
             await k.edit("successful")
-        
+        await k.delete()
    
    
