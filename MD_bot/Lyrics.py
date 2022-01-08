@@ -24,7 +24,7 @@ async def _(client, message):
     k = await message.reply("Searching For Lyrics.....")
     query = message.text
     rpl = lyrics(query)
-        await k.delete()
+
         try:
             await k.delete()
             await client.send_message(chat_id, text = rpl, reply_to_message_id = message.message_id)
