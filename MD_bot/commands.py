@@ -34,7 +34,7 @@ async def gstart(bot, cmd):
             reply_markup=reply_markup )
    return
 
-@Client.on_message(filters.command("songwithcmd"))
+@Client.on_message(filters.command("songwithcmd") & filters.group)
 async def withcmd(bot, message):
    chat = message.chat.id
    user = message.from_user.id
@@ -43,15 +43,13 @@ async def withcmd(bot, message):
       return
    if ' ' in message.text:
         r, sts = message.text.split(None, 1)
-        chat = message.chat.id
         if sts =="True":
             await db.song(int(chat))
-            await asyncio.sleep(1)
             k =await message.reply("successfull, Now bot send song only with using command /song")
         if sts =="False":
             await db.notsong(int(chat))
             k =await message.reply("successfull, Now bot send song without any commands")
-        await asyncio.sleep(5)
-        await k.delete()
+        await asyncio.sleep(3)
+        await k and message.delete()
    
    
