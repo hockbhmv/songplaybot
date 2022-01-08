@@ -43,11 +43,11 @@ async def withcmd(bot, message):
         await asyncio.sleep(1)
         if sts =="True" or "true":
             await db.song(chat)
-            await asyncio(1)
+            await asyncio.sleep(1)
             await k.edit("successful")
         if sts =="False" or "false":
             await db.notsong(chat)
-            await asyncio(1)
+            await asyncio.sleep(1)
             await k.edit("successful")
         await asyncio.sleep(5)
         await k.delete()
