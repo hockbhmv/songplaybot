@@ -47,6 +47,7 @@ async def withcmd(bot, message):
         if sts ==["False","false"]:
             await db.notsong(int(chat))
             await k.edit("successful")
+        await asyncio.sleep(5)
         await k.delete()
    
    
