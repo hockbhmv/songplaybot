@@ -6,7 +6,7 @@ from lyricsgenius import genius
 from pyrogram import Client as pbot
 
 #API = "https://apis.xditya.me/lyrics?song="
-API = genius.Genius("LTjINTL7fUCR16PdCLVHK339v4vxPtC8Pe70aDW7_vA7BlSbABKcnddm5ZxdomB2",verbose=False)
+api = genius.Genius("LTjINTL7fUCR16PdCLVHK339v4vxPtC8Pe70aDW7_vA7BlSbABKcnddm5ZxdomB2",verbose=False)
 
 def search(song):
         r = requests.get(API + song)
@@ -14,9 +14,10 @@ def search(song):
         return find
        
 def lyrics(song):
-        fin = search(song)
+        lyric = api.search_song(song)
+        lyrics = lyric.lyrics
         text = f'**🎶 Successfully Extracte Lyrics Of {song} 🎶**\n\n\n\n'
-        text += f'`{fin["lyrics"]}`'
+        text += f'{lyrics}'
         text += '\n\n\n💙 Thanks for using me'
         return text
 
