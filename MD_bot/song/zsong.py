@@ -101,7 +101,7 @@ async def song(client, message):
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id= message.message_id)
     db = message.chat.id  
-    can = [[InlineKeyboardButton('🔰 send in pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+    can = [[InlineKeyboardButton('🔰 send in my pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
     reply = InlineKeyboardMarkup(can)
     await k.edit_reply_markup(InlineKeyboardMarkup(can))
     await status.delete()
@@ -110,7 +110,7 @@ async def song(client, message):
 @Client.on_callback_query(filters.regex(r"^pm"))
 async def pmquery(bot, message):
        i, msg, db = message.data.split('#')
-       msg = await bot.get_messages(db, int(msg), reply_markup=None)
+       msg = await bot.get_messages(db, int(msg))
        await message.answer("The song is sended to your pm", show_alert=True)
-       await msg.copy(int(message.from_user.id))
+       await msg.copy(int(message.from_user.id), reply_markup=None)
     
