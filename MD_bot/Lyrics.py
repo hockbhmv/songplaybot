@@ -2,9 +2,11 @@ import io
 import os 
 import requests
 from pyrogram import filters
+from lyricsgenius import genius
 from pyrogram import Client as pbot
 
-API = "https://apis.xditya.me/lyrics?song="
+#API = "https://apis.xditya.me/lyrics?song="
+API = genius.Genius("LTjINTL7fUCR16PdCLVHK339v4vxPtC8Pe70aDW7_vA7BlSbABKcnddm5ZxdomB2",verbose=False)
 
 def search(song):
         r = requests.get(API + song)
