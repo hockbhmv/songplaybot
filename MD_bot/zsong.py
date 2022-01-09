@@ -108,7 +108,3 @@ async def song(client, message):
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
     
-@Client.on_callback_query(filters.regex('^pm'))
-async def imdb_callback(bot: Client, query: CallbackQuery):
-    
-    
