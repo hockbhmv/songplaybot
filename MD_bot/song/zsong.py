@@ -108,3 +108,10 @@ async def song(client, message):
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
     
+@Client.on_callback_query(filters.regex(r"^pm"))
+async def pmquery(bot, message):
+       i, msg, db = message.data.split('#')
+       msg = await bot.get_messages(db, int(msg))
+       await message.answer("The song is sended to your pm", show_alert=True)
+       await msg.copy(int(message.from_user.id))
+    
