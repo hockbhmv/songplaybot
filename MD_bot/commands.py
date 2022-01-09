@@ -74,7 +74,7 @@ async def startquery(bot, message):
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
-   if message.data =="song"
+   if message.data =="song":
        buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='help')]]
        await message.message.edit_text(
          text="<b>MODULE FOR SONG:</b>\n\n\n📚available commands:\n\n- /song [youtubeurl or Search Query] <code>- download the particular query in audio format</code>\n- /video [youtubeurl or search Query] <code>- download the particular query in video format</code>\n<b>Eg:</b>\n<code>/song Ckay Love Nwantiti\n/song nadan vibe - ribin</code>\n\n<b>other commands:</b>\n/songwithcmd True  <code>- This command for bot will give reply only with above command</code>\n/songwithcmd False  <code>- This command for bot will give song not video without any above command\n<b>eg:-</b>\n<code>panipalli 2</code>\n<code>Ckay Love Nwantiti</code>",
