@@ -101,7 +101,7 @@ async def song(client, message):
         performer=f"[MD MUSIC BOT]",
         reply_to_message_id= message.message_id)
     db = message.chat.id  #-1001553356176
-    m = await k.copy(int(db))
+   # m = await k.copy(int(db))
     can = [[InlineKeyboardButton('🔰 send in pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
     reply = InlineKeyboardMarkup(can)
     await k.edit_reply_markup(InlineKeyboardMarkup(can))
