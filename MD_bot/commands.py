@@ -61,7 +61,7 @@ async def withcmd(bot, message):
 
 @Client.on_callback_query()
 async def startquery(bot, message):
-   if message.data =="pm":
+   if message.data =="pmm":
        i, msg, db = message.data.split('#')
        msg = await bot.get_messages(db, int(msg))
        await message.answer("The song is sended to your pm", show_alert=True)
