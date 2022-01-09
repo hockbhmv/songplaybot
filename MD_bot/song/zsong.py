@@ -1,28 +1,22 @@
-from pyrogram import Client, filters
-from os import environ
-import asyncio
 import os
+import re
 import time
-import youtube_dl
-import logging
-from youtube_search import YoutubeSearch
-from pytube import YouTube
+import asyncio 
+import logging 
 import requests
-from youtubesearchpython import VideosSearch
+import youtube_dl
+from os import environ 
+from MD_bot.database import db 
+from pytube import YouTube 
+from pyrogram import Client, filters
+from youtube_search import YoutubeSearch 
+from youtubesearchpython import VideosSearch 
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
+database =db
+
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-import re
-id_pattern = re.compile(r'^.\d+$')
-CUSTOM_CAPTION = environ.get("CUSTOM_CAPTION", "")
-
-@Client.on_message(filters.command("start"))
-async def start(bot, message):
-  user = message.from_user.first_name
-  await message.reply_text(text = f"<code>ഹായ് {user},\nനിലവിൽ എന്റെ അഡ്മിൻ എന്നെ ഉണ്ടാക്കുന്നു\n\n ദയവായി പിന്നീട് വരൂ</code>")
-
-
-
-  
+ 
 
 def yt_search(song):
     videosSearch = VideosSearch(song, limit=1)
@@ -35,29 +29,39 @@ def yt_search(song):
         return url
 def get_arg(message):
     msg = message.text
-    msg = msg.replace(" ", "", 1) if msg[1] == " " else msg
+    msg = msg.replace(" "," ",1) if msg[1] == " " else msg
     split = msg[1:].replace("\n", " \n").split(" ")
     if " ".join(split[1:]).strip() == "":
         return ""
     return " ".join(split[1:])        
-      
-      
-      
-@Client.on_message(filters.command(["music", "song"]))
+
+@Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
+    msg = message
     chat_id = message.chat.id
     user_id = message.from_user["id"]
- 
-    args = get_arg(message) + " " + "song"
-    if args.startswith(" "):
-        await message.reply("Enter a song name.\n\n **example:**\n<code>/song Clay Love Nwantiti</code>")
-        return ""
+    if msg.text.startswith("/song"):
+      args = get_arg(msg) + " " + "song"
+      if args.startswith(" "):
+         return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
+    else:
+      configs = await database.get_chat(int(chat_id))
+      if msg.text.startswith("/"):
+         return
+      if configs['song']:
+         return
+      k = msg.text
+      args = get_arg(msg) + k + "song"
+      if not args:
+         return await msg.reply("ℹ️ error occurred")
+      
+    
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
-    await status.edit("<code>🔎searching the song....\n  Please wait ⏳ for few seconds</code>")
+    await status.edit("<code>🔄 uploading..</code>")
     video_link = yt_search(args)
     if not video_link:
-        await status.edit("✖️ 𝐅𝐨𝐮𝐧𝐝 𝐍𝐨𝐭𝐡𝐢𝐧𝐠. 𝐒𝐨𝐫𝐫𝐲.\n\n𝐓𝐫𝐲 𝐀𝐧𝐨𝐭𝐡𝐞𝐫 𝐊𝐞𝐲𝐰𝐨𝐫𝐤 𝐎𝐫 𝐌𝐚𝐲𝐛𝐞 𝐒𝐩𝐞𝐥𝐥.\n\nEg.`/song Faded`")
+        await status.edit(f"I couldn't find song with {args}")
         return ""
     yt = YouTube(video_link)
     results = []
@@ -84,9 +88,10 @@ async def song(client, message):
         await status.edit("Failed to download song 😶")
         
         return ""
+    
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
-    await client.send_audio(
+    k = await client.send_audio(
         chat_id=message.chat.id,
         audio=f"{str(user_id)}.mp3",
         duration=int(yt.length),
@@ -94,7 +99,18 @@ async def song(client, message):
         caption = cap,
         thumb=thumb_name,
         performer=f"[MD MUSIC BOT]",
-        reply_to_message_id=message.message_id,
-    )
+        reply_to_message_id= message.message_id)
+    db = message.chat.id  
+    can = [[InlineKeyboardButton('🔰 send in my pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+    reply = InlineKeyboardMarkup(can)
+    await k.edit_reply_markup(InlineKeyboardMarkup(can))
     await status.delete()
     os.remove(f"{str(user_id)}.mp3")
+    
+@Client.on_callback_query(filters.regex(r"^pm"))
+async def pmquery(bot, message):
+       i, msg, db = message.data.split('#')
+       msg = await bot.get_messages(db, int(msg))
+       await message.answer("The song is sended to your pm", show_alert=True)
+       await msg.copy(int(message.from_user.id), reply_markup=None)
+    
