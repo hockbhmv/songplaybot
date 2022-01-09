@@ -6,7 +6,7 @@ import logging
 import requests
 import youtube_dl
 from os import environ 
-from .database import db 
+from MD_bot.database import db 
 from pytube import YouTube 
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
