@@ -55,7 +55,7 @@ async def withcmd(bot, message):
             await db.notsong(int(chat))
             k =await message.reply("successfull, Now bot send song without any commands")
         await asyncio.sleep(3)
-        await k and message.delete()
+        await k,message.delete()
    return
 
 @Client.on_callback_query()
