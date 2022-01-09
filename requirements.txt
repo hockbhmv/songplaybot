@@ -6,7 +6,8 @@ youtube_search_python
 requests
 pyromod
 pytube
-tswift
+tswift 
+lyricsgenius==3.0.1
 #==========
 motor==2.4.0
 tgcrypto==1.2.2
