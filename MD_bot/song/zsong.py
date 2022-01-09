@@ -111,7 +111,7 @@ async def song(client, message):
 @Client.on_callback_query(filters.regex(r"^pm"))
 async def pmquery(bot, message):
        i, msg, db = message.data.split('#')
-       reply=InlineKeyboardMarkup())
+       reply=InlineKeyboardMarkup(None))
        msg = await bot.get_messages(db, int(msg), reply_markup=reply)
        await message.answer("The song is sended to your pm", show_alert=True)
        await msg.copy(int(message.from_user.id))
