@@ -5,8 +5,7 @@ RUN apt install git -y
 COPY requirements.txt /requirements.txt
 
 RUN cd /
+RUN git clone https://github.com/hockbhmv/songplaybot.git
 RUN pip3 install -U pip && pip3 install -U -r requirements.txt
-RUN mkdir /songplaybot
-WORKDIR /songplaybot
-COPY start.sh /start.sh
-CMD ["/bin/bash","/start.sh"]
+WORKDIR /app 
+CMD python3 bot.py
