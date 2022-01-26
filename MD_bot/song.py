@@ -49,7 +49,7 @@ async def song(client, message):
       CMD = configs['chat_status']['song']
       if msg.text.startswith("/"):
          return
-      if CMD=="True":
+      if CMD:
          return
       k = msg.text
       args = get_arg(msg) + k + "song"
