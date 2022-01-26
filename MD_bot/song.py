@@ -45,20 +45,16 @@ async def song(client, message):
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
-      configs = await database.find_chat(int(chat_id))
+      configs = await database.find_chat(chat_id)
       CMD = configs['chat_status']['song']
-      print(CMD)
       if msg.text.startswith("/"):
          return
-      if CMD:
-         print(CMD)
+      if CMD=="True":
          return
       k = msg.text
       args = get_arg(msg) + k + "song"
       if not args:
          return await msg.reply("ℹ️ error occurred")
-      
-    
     status = await message.reply("<code>processing...</code>")
     await asyncio.sleep(1)
     await status.edit("<code>🔄 uploading..</code>")
