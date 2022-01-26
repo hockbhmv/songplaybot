@@ -45,7 +45,7 @@ async def song(client, message):
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
-      configs = await database.get_chat(int(chat_id))
+      configs = await database.find_chat(int(chat_id))
       if msg.text.startswith("/"):
          return
       if configs['chat_status']['song']:
@@ -98,10 +98,10 @@ async def song(client, message):
         title=str(yt.title),
         caption = cap,
         thumb=thumb_name,
-        performer=f"[MD MUSIC BOT]",
+        performer="[MD MUSIC BOT]",
         reply_to_message_id= message.message_id)
     db = message.chat.id  
-    can = [[InlineKeyboardButton('🔰 send in my pm 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+    can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
     reply = InlineKeyboardMarkup(can)
     await k.edit_reply_markup(InlineKeyboardMarkup(can))
     await status.delete()
