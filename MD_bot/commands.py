@@ -39,26 +39,21 @@ async def gstart(bot, cmd):
         reply_markup=reply_markup )
    return
 
-@Client.on_message(filters.command("songwithcmd") & filters.group)
+@Client.on_message(filters.command(["settings", "songwithcmd"]) & filters.group)
 async def withcmd(bot, message):
    chat = message.chat.id
    user = message.from_user.id
    st = await bot.get_chat_member(chat, user)
    if not (st.status == "creator") or (st.status == "administrator"):
-      return
-   if ' ' in message.text:
-        r, sts = message.text.split(None, 1)
-        if sts =="True":
-            await db.song(int(chat))
-            k =await message.reply("successfull, Now bot send song only with using command /song")
-        if sts =="False":
-            await db.notsong(int(chat))
-            k =await message.reply("successfull, Now bot send song without any commands")
-        await asyncio.sleep(3)
-        await k.delete()
-        await message.delete()
-   return
-
+      k=await message.reply_text("your not group owner or admin")
+      await asyncio.sleep(7)
+      return await k.delete(True)
+   settings = await db.get_settings(chat)
+   if settings not None:
+      button=[[
+         InlineKeyboardButton('Song', callback_data =f"done#song#{settings.song}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done#song#{settings.song}")
+      ]]
+      await message.reply_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
 @Client.on_callback_query(filters.regex(r"^start"))
 async def startquery(bot, message):
    i, k = message.data.split('#')
@@ -69,25 +64,28 @@ async def startquery(bot, message):
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
-   if k =="help":
+   elif k =="help":
        buttons = [[InlineKeyboardButton('Music', callback_data='start#song'),InlineKeyboardButton('lyrics', callback_data='start#lyric')],[InlineKeyboardButton('⬅️ Back', callback_data='start#start')]]
        await message.message.edit_text(
           text="please add me in your group and send a song name i will give that song in group",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
-   if k =="song":
+   elif k =="song":
        buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start#help')]]
        await message.message.edit_text(
          text="<b>MODULE FOR SONG 🎧:</b>\n\n\n📚available commands:\n\n- /song <code>{youtubeurl or Search Query}</code> <code>- download the particular query in audio format</code>\n- /video <code>{youtubeurl or search Query}</code> <code>- download the particular query in video format</code>\n\n<b>example:</b>\n<code>/song Ckay Love Nwantiti\n/song nadan vibe - ribin</code>\n\n<b>📖 other commands:</b>\n<code>/songwithcmd True</code>  <code>- This command for bot will give reply only with above command</code>\n<code>/songwithcmd False</code>  <code>- This command for bot will give song not video without any above command</code>\n\n<b>example:-</b>\n<code>panipalli 2</code>\n<code>Ckay Love Nwantiti</code>",
          reply_markup = InlineKeyboardMarkup(buttons),
          parse_mode='html')
          
-   if k =="lyric":
+   elif k =="lyric":
        buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start#help')]]
        await message.message.edit_text(
           text="<b>MODULE LYRICS</b>\n\n📚 available command:\n<code>/Lyrics {Music name}</code>-<code>search lyrics of your query</code>\n\n<b>example:</b>\n<code>/lyrics Alone - Marshmallow</code>\n<code>/lyrics Nj panipali</code>\n",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
   
-   
+ async def save_group_settings(group_id, key, value):
+    current = await db.get_settings(group_id)
+    current[key] = value
+    await db.update_settings(group_id, current)  
