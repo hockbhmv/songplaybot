@@ -66,7 +66,7 @@ async def settings_query(bot, msg):
       done = await save_group_settings(group, type, False)
    else:
       done = await save_group_settings(group, type, True)
-   settings = await db.get_settings(group)
+   settings = await db.find_chat(group)
    k = 1
    if done:
       if settings is not None:
