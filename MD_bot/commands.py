@@ -75,8 +75,9 @@ async def settings_query(bot, msg):
             ],[
             InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}#{k}")
          ]]
-         await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
-
+         return await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
+   else: return print("not append to db")      
+  
 @Client.on_callback_query(filters.regex(r"^start"))
 async def startquery(bot, message):
    i, k = message.data.split('#')
