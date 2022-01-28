@@ -51,7 +51,7 @@ async def withcmd(bot, message):
    settings = await db.get_settings(chat)
    if settings is not None:
       button=[[
-         InlineKeyboardButton('Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song'}")
+         InlineKeyboardButton('Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song']}")
          ],[
          InlineKeyboardButton('Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
@@ -68,7 +68,7 @@ async def settings_query(bot, msg):
    settings = await db.get_settings(group)
    if settings is not None:
       button=[[
-         InlineKeyboardButton('Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song'}")
+         InlineKeyboardButton('Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song']}")
          ],[
          InlineKeyboardButton('Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
