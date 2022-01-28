@@ -71,7 +71,7 @@ async def settings_query(bot, msg):
    if done:
       if settings is not None:
          button=[[
-            InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['settings']['song']}#{k}")
+            InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['settings']['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['settings']['song']}#{k}")
             ],[
             InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['settings']['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['command'] else 'ON ✅', callback_data=f"done_#command#{settings['settings']['command']}#{k}")
          ]]
