@@ -63,18 +63,19 @@ async def settings_query(bot, msg):
    int, type, value, k = msg.data.split('#')
    group = msg.message.chat.id
    if value==True:
-      await save_group_settings(group, type, False)
+      done = await save_group_settings(group, type, False)
    else:
-      await save_group_settings(group, type, True)
+      done = await save_group_settings(group, type, True)
    settings = await db.get_settings(group)
    k = 1
-   if settings is not None:
-      button=[[
-         InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song']}#{k}")
-         ],[
-         InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}#{k}")
-      ]]
-      await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
+   if done:
+      if settings is not None:
+         button=[[
+            InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song']}#{k}")
+            ],[
+            InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}#{k}")
+         ]]
+         await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
 
 @Client.on_callback_query(filters.regex(r"^start"))
 async def startquery(bot, message):
