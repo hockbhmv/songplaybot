@@ -72,7 +72,7 @@ async def settings_query(bot, msg):
          ],[
          InlineKeyboardButton('only with Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
-      await msg.message.edit_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
+      await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
 
 @Client.on_callback_query(filters.regex(r"^start"))
 async def startquery(bot, message):
