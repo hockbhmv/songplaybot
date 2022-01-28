@@ -113,3 +113,4 @@ async def save_group_settings(group_id, key, value):
     current = await db.get_settings(group_id)
     current[key] = value
     await db.update_settings(group_id, current)  
+    return True
