@@ -59,7 +59,7 @@ async def withcmd(bot, message):
 
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
-   int, type, value = await msg.data.split('#')
+   int, type, value = msg.data.split('#')
    group = msg.message.chat.id
    if value==True:
       await save_group_settings(group, type, False)
