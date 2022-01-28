@@ -89,7 +89,8 @@ class Database:
     
     async def get_settings(self, id):
         default = {
-            'song': True
+            'song': True,
+            'command':True
         }
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
