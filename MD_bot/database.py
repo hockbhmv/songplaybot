@@ -94,7 +94,7 @@ class Database:
         }
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
-            return chat.get('settings', default)
+            return chat.get('settings')#, default)
         return default
     
     async def find_chat(self, chat: int):
