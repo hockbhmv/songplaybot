@@ -61,14 +61,13 @@ async def withcmd(bot, message):
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
    int, type, value, k = msg.data.split('#')
-   k = k
    group = msg.message.chat.id
    if value==True:
       await save_group_settings(group, type, False)
    else:
       await save_group_settings(group, type, True)
    settings = await db.get_settings(group)
-   k+= 1
+   k = 1
    if settings is not None:
       button=[[
          InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['song']}#{k}")
