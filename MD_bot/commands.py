@@ -49,9 +49,11 @@ async def withcmd(bot, message):
       await asyncio.sleep(7)
       return await k.delete(True)
    settings = await db.get_settings(chat)
-   if settings not None:
+   if settings is not None:
       button=[[
          InlineKeyboardButton('Song', callback_data =f"done#song#{settings.song}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✔️', callback_data=f"done#song#{settings.song}")
+         ],[
+         InlineKeyboardButton('Command', callback_data =f"done#song#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done#song#{settings['command']}")
       ]]
       await message.reply_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
 @Client.on_callback_query(filters.regex(r"^start"))
