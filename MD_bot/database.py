@@ -83,6 +83,21 @@ class Database:
         else:
             return chat.get('chat_status')
         
+    async def update_settings(self, id, settings):
+        await self.grp.update_one({'id': int(id)}, {'$set': {'settings': settings}})
+        
+    
+    async def get_settings(self, id):
+        default = {
+            'song': True,
+            'video': True,
+            'command': True
+        }
+        chat = await self.grp.find_one({'id':int(id)})
+        if chat:
+            return chat.get('settings', default)
+        return default
+    
     async def find_chat(self, chat: int):
         connections = self.cache.get(str(chat))
         if connections is not None:

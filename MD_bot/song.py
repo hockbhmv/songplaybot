@@ -6,13 +6,12 @@ import logging
 import requests
 import youtube_dl
 from os import environ 
-from MD_bot.database import db 
 from pytube import YouTube 
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
+from MD_bot.database import db as database
 from youtubesearchpython import VideosSearch 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
-database =db
 
 logging.getLogger().setLevel(logging.ERROR)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -40,16 +39,17 @@ async def song(client, message):
     msg = message
     chat_id = message.chat.id
     user_id = message.from_user["id"]
+    settings = await database.get_settings(chat_id)
+    if not settings['song']:
+       return
     if msg.text.startswith("/song"):
       args = get_arg(msg) + " " + "song"
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
-      configs = await database.get_chat(chat_id)
-      CMD = configs['song']
       if msg.text.startswith("/"):
          return
-      if CMD:
+      if settings['command']:
          return
       k = msg.text
       args = get_arg(msg) + k + "song"

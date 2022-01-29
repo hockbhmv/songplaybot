@@ -12,6 +12,7 @@ import aiohttp
 import requests
 import wget
 import youtube_dl
+from .database import db
 from pyrogram import Client, filters
 from pyrogram.errors import FloodWait, MessageNotModified
 from pyrogram.types import Message
@@ -197,6 +198,9 @@ is_downloading = False
     
 @Client.on_message(filters.command(["vsong", "video"]))
 async def ytmusic(client, message: Message):
+    settings = await db.get_settings(message.chat.id)
+    if not settings['video']:
+       return
     global is_downloading
     if is_downloading:
         await message.reply_text(
