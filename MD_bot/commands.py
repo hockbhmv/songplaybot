@@ -55,12 +55,17 @@ async def withcmd(bot, message):
          ],[ 
          InlineKeyboardButton(f'Video', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
          ],[
-         InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
+         InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if not settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
       await message.reply_text("<b>change your group setting using below buttons</b>", reply_markup=InlineKeyboardMarkup(button))
       
 @Client.on_message(filters.command(["refresh", "update"]) & filters.group)
 async def refresh_db(bot, message):
+   st = await bot.get_chat_member(message.chat.id, message.from_user.id)
+   if not (st.status == "creator") or (st.status == "administrator"):
+      k=await message.reply_text("your not group owner or admin")
+      await asyncio.sleep(7)
+      return await k.delete(True)
    default= dict(
       song=True,
       video=True,
@@ -71,6 +76,10 @@ async def refresh_db(bot, message):
 async def settings_query(bot, msg):
    int, type, value = msg.data.split('#')
    group = msg.message.chat.id
+   st = await bot.get_chat_member(group, msg.message.from_user.id)
+   if not (st.status == "creator") or (st.status == "administrator"):
+      return await msg.answer("your not group owner or admin")
+      
    if value=="True":
       done = await save_group_settings(group, type, False)
    else:
@@ -83,7 +92,7 @@ async def settings_query(bot, msg):
             ],[
             InlineKeyboardButton(f'Video', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
             ],[
-            InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
+            InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if not settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
          ]]
          return await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
    
