@@ -1,4 +1,5 @@
-git+https://github.com/hockbhmv/yotube
+git+https://github.com/hockbhmv/yotube 
+git+https://github.com/subinps/VCPlayerBot
 pyrogram
 tgcrypto
 youtube_search
