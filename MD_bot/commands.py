@@ -76,7 +76,7 @@ async def refresh_db(bot, message):
 async def settings_query(bot, msg):
    int, type, value = msg.data.split('#')
    group = msg.message.chat.id
-   st = await bot.get_chat_member(group, msg.message.from_user.id)
+   st = await bot.get_chat_member(group, msg.from_user.id)
    if not (st.status == "creator") or (st.status == "administrator"):
       return await msg.answer("your not group owner or admin")
       
