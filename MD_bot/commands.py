@@ -62,9 +62,9 @@ async def withcmd(bot, message):
 @Client.on_message(filters.command(["refresh", "update"]) & filters.group)
 async def refresh_db(bot, message):
    default= dict(
-      'song' = True,
-      'video' = True,
-      'command' = False)
+      'song'=True,
+      'video'=True,
+      'command'=False)
    return await db.update_settings(message.chat.id, default)
    
 @Client.on_callback_query(filters.regex(r"^done"))
