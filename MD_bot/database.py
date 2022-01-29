@@ -91,7 +91,7 @@ class Database:
         default = {
             'song': True,
             'video': True,
-            'command': False
+            'command': True
         }
         chat = await self.grp.find_one({'id':int(id)})
         if chat:
