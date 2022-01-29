@@ -62,7 +62,7 @@ async def withcmd(bot, message):
 async def settings_query(bot, msg):
    int, type, value, k = msg.data.split('#')
    group = msg.message.chat.id
-   if value==True:
+   if value=="True":
       done = await save_group_settings(group, type, False)
    else:
       done = await save_group_settings(group, type, True)
