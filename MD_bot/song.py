@@ -50,6 +50,7 @@ async def song(client, message):
       if msg.text.startswith("/"):
          return
       if CMD:
+         print(CMD)
          return
       k = msg.text
       args = get_arg(msg) + k + "song"
