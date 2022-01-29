@@ -58,7 +58,15 @@ async def withcmd(bot, message):
          InlineKeyboardButton(f'SONG WITHOUT COMMAND', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
       await message.reply_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
-
+      
+@Client.on_message(filters.command(["refresh", "update"]) & filters.group)
+async def refresh_db(bot, message):
+   default= dict(
+      'song': True,
+      'video': True,
+      'command': False)
+   return await db.update_settings(message.chat.id, default)
+   
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
    int, type, value = msg.data.split('#')
@@ -115,3 +123,4 @@ async def save_group_settings(group_id, key, value):
     current[key] = value
     await db.update_settings(group_id, current)  
     return True
+
