@@ -51,13 +51,13 @@ async def withcmd(bot, message):
    settings = await db.get_settings(chat)
    if settings is not None:
       button=[[
-         InlineKeyboardButton(f'SONG', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
+         InlineKeyboardButton(f'Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
          ],[ 
-         InlineKeyboardButton(f'VIDEO', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
+         InlineKeyboardButton(f'Video', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
          ],[
-         InlineKeyboardButton(f'SONG WITHOUT COMMAND', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
+         InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
-      await message.reply_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
+      await message.reply_text("<b>change your group setting using below buttons</b>", reply_markup=InlineKeyboardMarkup(button))
       
 @Client.on_message(filters.command(["refresh", "update"]) & filters.group)
 async def refresh_db(bot, message):
@@ -79,11 +79,11 @@ async def settings_query(bot, msg):
    if done:
       if settings is not None:
          button=[[
-            InlineKeyboardButton(f'SONG', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
+            InlineKeyboardButton(f'Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
             ],[
-            InlineKeyboardButton(f'VIDEO', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
+            InlineKeyboardButton(f'Video', callback_data =f"done#video#{settings['video']}"), InlineKeyboardButton('OFF ❌' if settings['video'] else 'ON ✅', callback_data=f"done_#video#{settings['video']}")
             ],[
-            InlineKeyboardButton(f'SONG WITHOUT COMMAND', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
+            InlineKeyboardButton(f'Song Without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
          ]]
          return await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
    
