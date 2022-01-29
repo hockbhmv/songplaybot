@@ -48,36 +48,33 @@ async def withcmd(bot, message):
       k=await message.reply_text("your not group owner or admin")
       await asyncio.sleep(7)
       return await k.delete(True)
-   settings = await db.find_chat(chat)
-   k = 0
+   settings = await db.get_settings(chat)
    if settings is not None:
       button=[[
-         InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['settings']['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['song']else 'ON ✔️', callback_data=f"done_#song#{settings['settings']['song']}#{k}")
+         InlineKeyboardButton(f'Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
          ],[ 
-         InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['settings']['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['command'] else 'ON ✅', callback_data=f"done_#command#{settings['settings']['command']}#{k}")
+         InlineKeyboardButton(f'song without Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
       ]]
       await message.reply_text("change your group setting as your wish", reply_markup=InlineKeyboardMarkup(button))
 
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
-   int, type, value, k = msg.data.split('#')
+   int, type, value = msg.data.split('#')
    group = msg.message.chat.id
    if value=="True":
       done = await save_group_settings(group, type, False)
    else:
       done = await save_group_settings(group, type, True)
-   settings = await db.find_chat(group)
-   k = 1
+   settings = await db.get_settings(group)
    if done:
       if settings is not None:
          button=[[
-            InlineKeyboardButton(f'Song {k}', callback_data =f"done#song#{settings['settings']['song']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['song'] else 'ON ✔️', callback_data=f"done_#song#{settings['settings']['song']}#{k}")
+            InlineKeyboardButton(f'Song', callback_data =f"done#song#{settings['song']}"), InlineKeyboardButton('OFF ❌' if settings['song'] else 'ON ✅', callback_data=f"done_#song#{settings['song']}")
             ],[
-            InlineKeyboardButton(f'only with Command {k}', callback_data =f"done#command#{settings['settings']['command']}#{k}"), InlineKeyboardButton('OFF ❌' if settings['settings']['command'] else 'ON ✅', callback_data=f"done_#command#{settings['settings']['command']}#{k}")
+            InlineKeyboardButton(f'only with Command', callback_data =f"done#command#{settings['command']}"), InlineKeyboardButton('OFF ❌' if settings['command'] else 'ON ✅', callback_data=f"done_#command#{settings['command']}")
          ]]
          return await msg.message.edit_reply_markup(reply_markup=InlineKeyboardMarkup(button))
-   else: return print("not append to db")      
-  
+   
 @Client.on_callback_query(filters.regex(r"^start"))
 async def startquery(bot, message):
    i, k = message.data.split('#')
@@ -110,8 +107,7 @@ async def startquery(bot, message):
           parse_mode='html')
   
 async def save_group_settings(group_id, key, value):
-    current = await db.find_chat(group_id)
-    current = current['settings']
+    current = await db.get_settings(group_id)
     current[key] = value
     await db.update_settings(group_id, current)  
     return True
