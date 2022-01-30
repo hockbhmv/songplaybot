@@ -1,10 +1,10 @@
 if [ -z $UPSTREAM_REPO ]
 then
   echo "Cloning main Repository"
-  git clone https://github.com/hockbhmv/songplaybot.git /songplaybot
+  git clone https://github.com/hockbhmv/songplaybot /songplaybot
 else
-  echo "Cloning Custom Repo from $UPSTREAM_REPO "
-  git clone $UPSTREAM_REPO /songplaybot
+  echo "Cloning $UPSTREAM_REPO branch from Respository"
+  git clone https://github.com/hockbhmv/songplaybot -b $UPSTREAM_REPO /songplaybot
 fi
 cd /songplaybot
 pip3 install -U -r requirements.txt
