@@ -1,11 +1,11 @@
-git+https://github.com/hockbhmv/yotube
+git+https://github.com/hockbhmv/yotube 
+git+https://github.com/hockbhmv/pytube.git
 pyrogram
 tgcrypto
 youtube_search
 youtube_search_python
 requests
 pyromod
-pytube
 tswift 
 lyricsgenius==3.0.1
 #==========
