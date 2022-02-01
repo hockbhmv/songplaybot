@@ -5,7 +5,7 @@ youtube_search
 youtube_search_python
 requests
 pyromod
-git+https://github.com/hockbhmv/pytube
+git+https://github.com/oleksandr-shvab/pytube.git
 tswift 
 lyricsgenius==3.0.1
 #==========
