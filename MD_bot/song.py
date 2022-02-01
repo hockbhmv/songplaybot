@@ -90,21 +90,24 @@ async def song(client, message):
     
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
-    k = await client.send_audio(
-        chat_id=message.chat.id,
-        audio=f"{str(user_id)}.mp3",
-        duration=int(yt.length),
-        title=str(yt.title),
-        caption = cap,
-        thumb=thumb_name,
-        performer="[MD MUSIC BOT]",
-        reply_to_message_id= message.message_id)
-    db = message.chat.id  
-    can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
-    reply = InlineKeyboardMarkup(can)
-    await k.edit_reply_markup(InlineKeyboardMarkup(can))
-    await status.delete()
-    os.remove(f"{str(user_id)}.mp3")
+    try:
+       k = await client.send_audio(
+           chat_id=message.chat.id,
+           audio=f"{str(user_id)}.mp3",
+           duration=int(yt.length),
+           title=str(yt.title),
+           caption = cap,
+           thumb=thumb_name,
+           performer="[MD MUSIC BOT]",
+           reply_to_message_id= message.message_id)
+       db = message.chat.id  
+       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
+       reply = InlineKeyboardMarkup(can)
+       await k.edit_reply_markup(InlineKeyboardMarkup(can))
+       await status.delete()
+       os.remove(f"{str(user_id)}.mp3")
+    except:
+       await status.edit('some error occurred, please try again')
     
 @Client.on_callback_query(filters.regex(r"^pm"))
 async def pmquery(bot, message):
