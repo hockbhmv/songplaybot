@@ -1,5 +1,5 @@
 git+https://github.com/hockbhmv/yotube 
-git+https://github.com/glubsy/pytube.git
+pytube
 pyrogram
 tgcrypto
 youtube_search
