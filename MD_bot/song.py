@@ -37,8 +37,8 @@ def get_arg(message):
 @Client.on_message(filters.command('search'))
 async def search(bot, message):
     i, query = message.text.split(None, 1)
-    k = await bot.search_messages(chat_id=-1001662995429, query=query, limit=1)
-    await k.copy(message.from_user.id)  if k else await message.reply_text("nothing")
+    for msg in bot.search_messages(chat_id=-1001662995429, query=query, limit=1)
+         await msg.copy(message.from_user.id)  if k else await message.reply_text("nothing")
    
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
