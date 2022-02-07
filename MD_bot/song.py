@@ -34,7 +34,7 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])   
 
-@Client.on_message(filters.command('search'))
+@Client.on_message(filters.command('search') & filters.text)
 async def search(bot, message):
     i, query = message.text.split(None, 1)
     chat = -1001662995429
