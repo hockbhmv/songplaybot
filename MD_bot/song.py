@@ -32,8 +32,14 @@ def get_arg(message):
     split = msg[1:].replace("\n", " \n").split(" ")
     if " ".join(split[1:]).strip() == "":
         return ""
-    return " ".join(split[1:])        
+    return " ".join(split[1:])   
 
+@Client.on_message(filters.command('search'))
+async def search(bot, message):
+    i, query = message.text.split(None, 1)
+    k = await bot.search_messages(chat_id=-1001662995429, query=query, limit=1)
+    await k.copy(message.from_user.id)  if k else await message.reply_text("nothing")
+   
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
     msg = message
