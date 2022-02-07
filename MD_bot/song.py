@@ -38,7 +38,7 @@ def get_arg(message):
 async def search(bot, message):
     i, query = message.text.split(None, 1)
     chat = -1001662995429
-    async for msg in bot.search_messages(chat_id=chat, query=query, limit=1):
+    for message in bot.search_messages(chat, query=query, limit=1):
          await msg.copy(message.from_user.id)  if k else await message.reply_text("nothing")
    
 @Client.on_message(filters.text & filters.group & filters.incoming)
