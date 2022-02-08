@@ -40,7 +40,7 @@ async def search(bot, message):
     chat = -1001662995429
     if chat:
        async for msg in bot.USER.search_messages(chat, query=query, limit=1):
-            await msg.copy(message.from_user.id)  if msg else await message.reply_text("nothing")
+            await msg.copy(message.from_user.id)  if msg is not None else await message.reply_text("nothing")
    
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
