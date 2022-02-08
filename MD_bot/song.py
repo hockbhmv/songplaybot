@@ -74,13 +74,15 @@ async def song(client, message):
     await status.edit("<code>🔄 uploading..</code>")
     chat = -1001662995429
     db = message.chat.id  
-    message_id=[]
-    can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{message_id}#{db}")]]
-    reply = InlineKeyboardMarkup(can)
     if title:
        async for msg in client.USER.search_messages(chat, query=title, limit=1):
-           k = await msg.copy(message.chat.id, reply_to_message_id= message.message_id, reply_markup=reply)
-           message_id.append(k.message_id)
+           k = await client.copy_message(
+              chat_id=message.chat.id,
+              from_chat_id=chat,
+              message_id=message.message_id
+              )
+           can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{message_id}#{db}")]]
+           reply = InlineKeyboardMarkup(can)
            await k.edit_reply_markup(InlineKeyboardMarkup(can))
            return
     duration = results[0]["duration"]
