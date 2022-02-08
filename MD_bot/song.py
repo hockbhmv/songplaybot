@@ -73,8 +73,9 @@ async def song(client, message):
     title = results[0]["title"]
     await status.edit("<code>🔄 uploading..</code>")
     chat = -1001662995429
-    async for msg in client.USER.search_messages(chat, query=title, limit=1):
-         return await msg.copy(message.chat.id)
+    if title:
+       async for msg in client.USER.search_messages(chat, query=title, limit=1):
+           return await msg.copy(message.chat.id)
     duration = results[0]["duration"]
     views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
