@@ -76,9 +76,8 @@ async def song(client, message):
     db = message.chat.id  
     if title:
        async for msg in client.USER.search_messages(chat, query=title, limit=1):
-           xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id
+           xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id)
            can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
-           reply = InlineKeyboardMarkup(can)
            await xx.edit_reply_markup(InlineKeyboardMarkup(can))
            return
     duration = results[0]["duration"]
@@ -110,7 +109,6 @@ async def song(client, message):
            reply_to_message_id= message.message_id)
        db = message.chat.id  
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
-       reply = InlineKeyboardMarkup(can)
        await k.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
        await k.copy(chat)
