@@ -103,7 +103,7 @@ async def song(client, message):
            caption = cap,
            thumb=thumb_name,
            performer="[MD MUSIC BOT]",
-           parse_mode="markdown",
+           parse_mode="md",
            reply_to_message_id= message.message_id)
        db = message.chat.id  
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
