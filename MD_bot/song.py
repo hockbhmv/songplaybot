@@ -79,7 +79,7 @@ async def song(client, message):
            k = await client.copy_message(
               chat_id=message.chat.id,
               from_chat_id=chat,
-              message_id=message.message_id
+              message_id=msg.message_id
               )
            can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{message_id}#{db}")]]
            reply = InlineKeyboardMarkup(can)
