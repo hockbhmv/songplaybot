@@ -2,7 +2,7 @@ import os
 from info import BOT_TOKEN, API_ID, API_HASH, SESSION
 import pyromod.listen
 from pyrogram import Client
-from user import User
+from .user import User
 import logging 
 
 logging.basicConfig(level=logging.DEBUG,
@@ -21,7 +21,7 @@ class Bot(Client):
         bot_token = BOT_TOKEN,
         api_id = API_ID,
         api_hash = API_HASH,
-        plugins={"root": "MD_bot"},
+        plugins={"root": "MD_bot/song"},
         workers=4
         )
     async def start(self):
