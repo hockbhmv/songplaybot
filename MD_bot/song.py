@@ -73,9 +73,16 @@ async def song(client, message):
     title = results[0]["title"]
     await status.edit("<code>🔄 uploading..</code>")
     chat = -1001662995429
+    db = message.chat.id  
+    message_id=[]
+    can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{message_id}#{db}")]]
+    reply = InlineKeyboardMarkup(can)
     if title:
        async for msg in client.USER.search_messages(chat, query=title, limit=1):
-           return await msg.copy(message.chat.id)
+           k = await msg.copy(message.chat.id, reply_to_message_id= message.message_id, reply_markup=reply)
+           message_id.append(k.message_id)
+           await k.edit_reply_markup(InlineKeyboardMarkup(can))
+           return
     duration = results[0]["duration"]
     views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
@@ -103,7 +110,7 @@ async def song(client, message):
            caption = cap,
            thumb=thumb_name,
            performer="[MD MUSIC BOT]",
-           parse_mode="md",
+           parse_mode="combined",
            reply_to_message_id= message.message_id)
        db = message.chat.id  
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
