@@ -2,7 +2,7 @@ import os
 from info import BOT_TOKEN, API_ID, API_HASH, SESSION
 import pyromod.listen
 from pyrogram import Client
-from user import USER, USER_ID
+from user import User
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
