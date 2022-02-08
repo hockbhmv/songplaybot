@@ -9,7 +9,7 @@ from os import environ
 from pytube import YouTube 
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
-from MD_bot.database import db as database
+from .database import db as database
 from youtubesearchpython import VideosSearch 
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 
