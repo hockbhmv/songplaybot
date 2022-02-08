@@ -34,12 +34,12 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])   
 
-@Client.on_message(filters.command('search') & filters.text)
+@Client.on_message(filters.text & filters.private & filters.incoming)
 async def search(bot, message):
-    i, query = message.text.split(None, 1)
+    query = message.text
     chat = -1001662995429
     if chat:
-        for message in bot.USER.search_messages(chat, query=query, limit=1):
+        for message in bot.search_messages(chat, query=query, limit=1):
             await msg.copy(message.from_user.id)  if k else await message.reply_text("nothing")
    
 @Client.on_message(filters.text & filters.group & filters.incoming)
