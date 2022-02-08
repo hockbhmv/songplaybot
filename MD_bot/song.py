@@ -34,6 +34,14 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])        
 
+@Client.on_message(filters.text & filters.private & filters.incoming)
+async def search(bot, message):
+    query = message.text
+    chat = -1001662995429
+    if chat:
+       async for message in bot.USER.search_messages(chat, query=query, limit=1):
+            await message.copy(message.from_user.id)  if k else await message.reply_text("nothing")
+   
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
     msg = message
