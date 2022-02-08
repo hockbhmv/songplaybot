@@ -72,11 +72,9 @@ async def song(client, message):
    # caps = none
     title = results[0]["title"]
     await status.edit("<code>🔄 uploading..</code>")
-    try:
-      async for msg in client.USER.search_messages(-1001662995429, query=title, limit=1):
+    chat = -1001662995429
+    async for msg in client.USER.search_messages(chat, query=title, limit=1):
          return await msg.copy(message.chat.id)
-    except:
-        pass
     duration = results[0]["duration"]
     views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
@@ -104,6 +102,7 @@ async def song(client, message):
            caption = cap,
            thumb=thumb_name,
            performer="[MD MUSIC BOT]",
+           parse_mode="markdown"
            reply_to_message_id= message.message_id)
        db = message.chat.id  
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
