@@ -1,5 +1,5 @@
 from pyrogram import Client
-from info import API_HASH, APP_ID, SESSION
+from info import API_HASH, API_ID, SESSION
     
 
 class User(Client):
@@ -7,7 +7,7 @@ class User(Client):
         super().__init__(
             SESSION,
             api_hash=API_HASH,
-            api_id=APP_ID,
+            api_id=API_ID,
             workers=4
         )
         
