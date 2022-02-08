@@ -34,14 +34,7 @@ def get_arg(message):
         return ""
     return " ".join(split[1:])        
 
-@Client.on_message(filters.text & filters.private & filters.incoming)
-async def search(bot, message):
-    query = message.text
-    chat = -1001662995429
-    if chat:
-       async for msg in bot.USER.search_messages(chat, query=query, limit=1):
-            await msg.copy(message.from_user.id)  if msg is not None else await message.reply_text("nothing")
-   
+
 @Client.on_message(filters.text & filters.group & filters.incoming)
 async def song(client, message):
     msg = message
@@ -64,8 +57,6 @@ async def song(client, message):
       if not args:
          return await msg.reply("ℹ️ error occurred")
     status = await message.reply("<code>processing...</code>")
-    await asyncio.sleep(1)
-    await status.edit("<code>🔄 uploading..</code>")
     video_link = yt_search(args)
     if not video_link:
         await status.edit(f"I couldn't find song with {args}")
@@ -80,6 +71,12 @@ async def song(client, message):
         count += 1
    # caps = none
     title = results[0]["title"]
+    await status.edit("<code>🔄 uploading..</code>")
+    try:
+      async for msg in client.USER.search_messages(-1001662995429, query=title, limit=1):
+         return await msg.copy(message.chat.id)
+    except:
+        pass
     duration = results[0]["duration"]
     views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
@@ -113,6 +110,7 @@ async def song(client, message):
        reply = InlineKeyboardMarkup(can)
        await k.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
+       await msg.copy(-1001662995429)
        os.remove(f"{str(user_id)}.mp3")
     except:
        await status.edit('some error occurred, please try again')
