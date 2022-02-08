@@ -39,7 +39,7 @@ async def search(bot, message):
     query = message.text
     chat = -1001662995429
     if chat:
-        for message in bot.search_messages(chat, query=query, limit=1):
+       async for message in bot.search_messages(chat, query=query, limit=1):
             await msg.copy(message.from_user.id)  if k else await message.reply_text("nothing")
    
 @Client.on_message(filters.text & filters.group & filters.incoming)
