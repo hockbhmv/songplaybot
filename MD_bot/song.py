@@ -69,36 +69,30 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
-   # caps = none
+   
     title = results[0]["title"]
     await status.edit("<code>🔄 uploading..</code>")
     chat = -1001662995429
     db = message.chat.id  
     if title:
        async for msg in client.USER.search_messages(chat, query=title, limit=1):
-           k = await client.copy_message(
-              chat_id=message.chat.id,
-              from_chat_id=chat,
-              message_id=msg.message_id
-              )
-           can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{message_id}#{db}")]]
+           xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id
+           can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
            reply = InlineKeyboardMarkup(can)
-           await k.edit_reply_markup(InlineKeyboardMarkup(can))
+           await xx.edit_reply_markup(InlineKeyboardMarkup(can))
            return
     duration = results[0]["duration"]
     views = results[0]["views"]
     thumbnail = results[0]["thumbnails"][0]
-    audio = yt.streams.filter(only_audio=True).first()
     thumb_name = f'thumb{message.message_id}.jpg' 
     thumb = requests.get(thumbnail, allow_redirects=True)
     open(thumb_name, 'wb').write(thumb.content)
     cap =f"** ❍ Title :** <code>{title[:35]}</code>\n**❍ duration :** <code>{duration}</code>\n**❍ views :** <code>{views}</code>\n**❍ Link :** [Click here]({video_link})\n**❍ Uploaded by** [MD MUSIC BOT](https://t.me/MD_songbot)"
     try:
-        
+        audio = yt.streams.filter(only_audio=True).first()
         download = audio.download(filename=f"{str(user_id)}")
     except Exception as ex:
         await status.edit("Failed to download song 😶")
-        
         return ""
     
     rename = os.rename(download, f"{str(user_id)}.mp3")
@@ -119,7 +113,7 @@ async def song(client, message):
        reply = InlineKeyboardMarkup(can)
        await k.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
-       await msg.copy(-1001662995429)
+       await k.copy(chat)
        os.remove(f"{str(user_id)}.mp3")
     except:
        await status.edit('some error occurred, please try again')
