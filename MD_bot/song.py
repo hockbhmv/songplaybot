@@ -67,7 +67,7 @@ async def song(client, message):
     await status.edit("<code>🔄 uploading..</code>")
     chat = -1001662995429
     db = message.chat.id  
-    async for msg in client.USER.search_messages(chat, query=str(yt.title), limit=1):
+    async for msg in client.USER.search_messages(chat, query=args or str(yt.title), limit=1):
         if msg is not None or "":
            xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id, reply_to_message_id= message.message_id)
            can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
