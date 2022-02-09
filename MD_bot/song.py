@@ -69,7 +69,7 @@ async def song(client, message):
     chat = -1001662995429
     db = message.chat.id  
     files, offset, total_results = await get_search_results(yt.title, offset=0, filter=True)
-    if files 
+    if files:
        i = 0
        if i == 1: return
        for file in files:
