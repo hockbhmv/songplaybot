@@ -8,10 +8,9 @@ import youtube_dl
 from os import environ 
 from pytube import YouTube 
 from pyrogram import Client, filters
-from Filter_db import get_search_results
 from youtube_search import YoutubeSearch 
-from MD_bot.database import db as database
-from youtubesearchpython import VideosSearch 
+from youtubesearchpython import VideosSearch
+from . import get_search_results, db as database
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 
 logging.getLogger().setLevel(logging.ERROR)
