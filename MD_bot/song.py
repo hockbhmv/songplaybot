@@ -65,13 +65,16 @@ async def song(client, message):
     results = []
     count = 0
     await status.edit("<code>🔄 uploading..</code>")
-    chat = "-1001662995429"
+    chat = -1001662995429
     db = message.chat.id  
-    async for msg in client.USER.search_messages(int(chat), query=str(yt.title), limit=1):
-        xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id, reply_to_message_id= message.message_id)
-        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
-        await xx.edit_reply_markup(InlineKeyboardMarkup(can))
-        return await status.delete()
+    async for msg in client.USER.search_messages(chat, query=str(yt.title), limit=1):
+        if msg is not None or "":
+           xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id, reply_to_message_id= message.message_id)
+           can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
+           await xx.edit_reply_markup(InlineKeyboardMarkup(can))
+           return await status.delete()
+        else:
+           await status.edit('nothing found in db')
     while len(results) == 0 and count < 6:
         if count>0:
             time.sleep(1)
