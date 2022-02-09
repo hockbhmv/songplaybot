@@ -5,7 +5,7 @@ from info import DB
 from struct import pack
 from pyrogram.file_id import FileId 
 from pyrogram import Client, filters
-from umongo import Instance, Document, FileId
+from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 
