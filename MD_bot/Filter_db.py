@@ -1,12 +1,16 @@
 import logging
 from struct import pack
 import re
-import base64
-from pyrogram.file_id import FileId
-from umongo import Instance, Document, fields
+import base64 
+from pyrogram.file_id import Fil 
+from pyrogram import Client, filters
+from umongo import Instance, Document, FileId
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
 from info import DB
+
+CHANNEL = -1001662995429
+media_filter = filters.document | filters.audio
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
@@ -16,6 +20,20 @@ client = AsyncIOMotorClient(DB)
 db = client["song-bot"]
 instance = Instance.from_db(db)
 
+@Client.on_message(filters.chat(CHANNEL) & media_filter)
+async def media(bot, message):
+    """Media Handler"""
+    for file_type in ("document", "video", "audio"):
+        media = getattr(message, file_type, None)
+        if media is not None:
+            break
+    else:
+        return
+
+    media.file_type = file_type
+    media.caption = message.caption
+    await save_file(media)
+    
 @instance.register
 class Media(Document):
     file_id = fields.StrField(attribute='_id')
