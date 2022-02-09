@@ -1,13 +1,14 @@
-import logging
-from struct import pack
 import re
 import base64 
-from pyrogram.file_id import Fil 
+import logging
+from info import DB
+from struct import pack
+from pyrogram.file_id import FileId 
 from pyrogram import Client, filters
 from umongo import Instance, Document, FileId
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
-from info import DB
+
 
 CHANNEL = -1001662995429
 media_filter = filters.document | filters.audio
