@@ -104,12 +104,12 @@ async def song(client, message):
         await status.edit("Failed to download song 😶")
         return ""
     
-    rename = os.rename(download, f"{str(user_id)}.mp3")
+    rename = os.rename(download, f"{str(yt.title)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
        song = await client.send_audio(
            chat_id=message.chat.id,
-           audio=f"{str(user_id)}.mp3",
+           audio=f"{str(yt.title)}.mp3",
            duration=int(yt.length),
            title=str(yt.title),
            caption = cap,
@@ -123,7 +123,7 @@ async def song(client, message):
        await status.delete()
        await media(client, song)
        await song.copy(chat)
-       os.remove(f"{str(user_id)}.mp3")
+       os.remove(f"{str(yt.title)}.mp3")
     except:
        await status.edit('some error occurred, please try again')
     
