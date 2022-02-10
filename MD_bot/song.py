@@ -10,7 +10,7 @@ from pytube import YouTube
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
 from youtubesearchpython import VideosSearch
-from . import get_search_results, db as database
+from . import get_search_results, db as database, media
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 
 logging.getLogger().setLevel(logging.ERROR)
@@ -107,7 +107,7 @@ async def song(client, message):
     rename = os.rename(download, f"{str(user_id)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
-       k = await client.send_audio(
+       song = await client.send_audio(
            chat_id=message.chat.id,
            audio=f"{str(user_id)}.mp3",
            duration=int(yt.length),
@@ -118,10 +118,11 @@ async def song(client, message):
            parse_mode="combined",
            reply_to_message_id= message.message_id)
        db = message.chat.id  
-       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{k.message_id}#{db}")]]
-       await k.edit_reply_markup(InlineKeyboardMarkup(can))
+       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{song.message_id}#{db}")]]
+       await song.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
-       await k.copy(chat)
+       await media(client, song)
+       await song.copy(chat)
        os.remove(f"{str(user_id)}.mp3")
     except:
        await status.edit('some error occurred, please try again')
