@@ -58,15 +58,15 @@ async def song(client, message):
          return await msg.reply("ℹ️ error occurred")
     status = await message.reply("<code>processing...</code>")
     video_link = yt_search(args)
-    await status.edit("<code>🔄 uploading.</code>")
+    await status.edit("<code>🔄 uploading ▢▢▢</code>")
     if not video_link:
         await status.edit(f"I couldn't find song with {args}")
         return ""
-    await status.edit("<code>🔄 uploading..</code>")
+    await status.edit("<code>🔄 uploading ▣▢▢</code>")
     yt = YouTube(video_link)
     results = []
     count = 0
-    await status.edit("<code>🔄 uploading...</code>")
+    await status.edit("<code>🔄 uploading ▣▣▢</code>")
     files, offset, total_results = await get_search_results(yt.title, offset=0, filter=True)
     if files:
        i = 0
@@ -98,7 +98,7 @@ async def song(client, message):
     except Exception as ex:
         await status.edit("Failed to download song 😶")
         return ""
-    
+    await status.edit("<code>🔄 uploading ▣▣▣</code>")
     rename = os.rename(download, f"{str(yt.title)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
@@ -117,10 +117,9 @@ async def song(client, message):
        await song.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
        await media(client, song)
-       await song.copy(chat)
        os.remove(f"{str(yt.title)}.mp3")
     except:
-       await status.edit('some error occurred, please try again')
+       await status.edit("some error occurred, please try again")
     
 @Client.on_callback_query(filters.regex(r"^pm"))
 async def pmquery(bot, message):
