@@ -64,20 +64,18 @@ async def song(client, message):
         return ""
     await status.edit("<code>🔄 uploading ▣▢▢</code>")
     yt = YouTube(video_link)
+    await status.edit("<code>🔄 uploading ▣▣▢</code>")
+    files, offset, total_results = await get_search_results(str(yt.title), offset=1, filter=True)
+    if files:
+       for file in files:
+         if file.file_name==str(yt.title):
+             xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
+             can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
+             await xx.edit_reply_markup(InlineKeyboardMarkup(can))
+             return await status.delete()
+           
     results = []
     count = 0
-    await status.edit("<code>🔄 uploading ▣▣▢</code>")
-    files, offset, total_results = await get_search_results(yt.title, offset=0, filter=True)
-    if files:
-       i = 0
-       if i == 1: return
-       for file in files:
-         xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
-         can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
-         await xx.edit_reply_markup(InlineKeyboardMarkup(can))
-         i+=1
-         return await status.delete()
-      
     while len(results) == 0 and count < 6:
         if count>0:
             time.sleep(1)
