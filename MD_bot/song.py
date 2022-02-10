@@ -58,19 +58,21 @@ async def song(client, message):
          return await msg.reply("ℹ️ error occurred")
     status = await message.reply("<code>processing...</code>")
     video_link = yt_search(args)
+    await status.edit("<code>🔄 uploading.</code>")
     if not video_link:
         await status.edit(f"I couldn't find song with {args}")
         return ""
+    await status.edit("<code>🔄 uploading..</code>")
     yt = YouTube(video_link)
     results = []
     count = 0
-    await status.edit("<code>🔄 uploading..</code>")
+    await status.edit("<code>🔄 uploading...</code>")
     files, offset, total_results = await get_search_results(yt.title, offset=0, filter=True)
     if files:
        i = 0
        if i == 1: return
        for file in files:
-         xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption)
+         xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
          can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
          await xx.edit_reply_markup(InlineKeyboardMarkup(can))
          i+=1
