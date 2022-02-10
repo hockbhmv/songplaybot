@@ -65,24 +65,17 @@ async def song(client, message):
     results = []
     count = 0
     await status.edit("<code>🔄 uploading..</code>")
-    chat = -1001662995429
-    db = message.chat.id  
     files, offset, total_results = await get_search_results(yt.title, offset=0, filter=True)
     if files:
        i = 0
        if i == 1: return
        for file in files:
-         await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption)
+         xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption)
+         can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
+         await xx.edit_reply_markup(InlineKeyboardMarkup(can))
          i+=1
-         return             
-   # async for msg in client.USER.search_messages(chat, query=str(yt.title[:35]), filter="audio", limit=1):
-        #if msg is not None or "":
-          # xx = await client.copy_message(chat_id=message.chat.id, from_chat_id=chat, message_id=msg.message_id, reply_to_message_id= message.message_id)
-          # can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
-          # await xx.edit_reply_markup(InlineKeyboardMarkup(can))
-          # return await status.delete()
-      #  else:
-          # await status.edit('nothing found in db')
+         return await status.delete()
+      
     while len(results) == 0 and count < 6:
         if count>0:
             time.sleep(1)
