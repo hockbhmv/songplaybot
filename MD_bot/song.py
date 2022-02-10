@@ -72,7 +72,7 @@ async def song(client, message):
        i = 0
        if i == 1: return
        for file in files:
-         await client.send_cached_media(chat_id=message.chat.id,file_id=file_id, caption=file.caption)
+         await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption)
          i+=1
          return             
    # async for msg in client.USER.search_messages(chat, query=str(yt.title[:35]), filter="audio", limit=1):
