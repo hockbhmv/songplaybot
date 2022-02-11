@@ -68,7 +68,7 @@ async def song(client, message):
     files, offset, total_results = await get_search_results(str(yt.title), offset=1, filter=True)
     if files:
        for file in files:
-         if file.file_name==str(yt.title):
+         if file.file_name==f"{str(yt.title)}.mp3":
              xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
              can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
              await xx.edit_reply_markup(InlineKeyboardMarkup(can))
@@ -96,10 +96,10 @@ async def song(client, message):
     except Exception as ex:
         await status.edit("Failed to download song 😶")
         return ""
-    await status.edit("<code>🔄 uploading ▣▣▣</code>")
     rename = os.rename(download, f"{str(yt.title)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
+       await status.edit("<code>🔄 uploading ▣▣▣</code>")
        song = await client.send_audio(
            chat_id=message.chat.id,
            audio=f"{str(yt.title)}.mp3",
