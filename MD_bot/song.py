@@ -66,7 +66,8 @@ async def song(client, message):
     files, offset, total_results = await get_search_results(str(yt.title), offset=1, filter=True)
     if files:
        for file in files:
-         if file.file_name in f"{yt.title} mp3":
+         song_name = re.sub(r"(_|\-|\.|\+)", " ", str(yt.title))
+         if file.file_name in f"{song_name} mp3":
              xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
              can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
              await xx.edit_reply_markup(InlineKeyboardMarkup(can))
