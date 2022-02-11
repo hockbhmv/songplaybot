@@ -74,7 +74,7 @@ async def song(client, message):
              await xx.edit_reply_markup(InlineKeyboardMarkup(can))
              return await status.delete()
          else: 
-             return await status.edit(f"{{file.file_name}\n\n\n{{yt.title} mp3}")
+             return await status.edit(f"{file.file_name}\n\n\n{{yt.title} mp3")
     results = []
     count = 0
     while len(results) == 0 and count < 6:
