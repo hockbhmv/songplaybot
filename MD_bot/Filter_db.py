@@ -2,9 +2,10 @@ import re
 import base64 
 import logging
 from struct import pack 
-from info import DB, CHANNEL
+from info import DB, CHANNEL 
 from pyrogram.file_id import FileId 
-from pyrogram import Client, filters
+from pyrogram import Client, filters 
+from pymongo.errors import DuplicateKeyError
 from umongo import Instance, Document, fields
 from motor.motor_asyncio import AsyncIOMotorClient
 from marshmallow.exceptions import ValidationError
