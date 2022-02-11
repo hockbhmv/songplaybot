@@ -20,13 +20,12 @@ def lyrics(song):
 @pbot.on_message(filters.command(["lyric", "lyrics"]))
 async def lyric(client, message):
    if ' ' in message.text:
-      r, query = message.text.split(None, 1)
-      k = await message.reply("Searching For Lyrics.....")
+      i, query = message.text.split(None, 1)
+      xx = await message.reply("Searching For Lyrics.....")
       lyric = lyrics(query)
       try:
-         await k.delete()
-         await client.send_message(message.chat.id, text=lyric, reply_to_message_id = message.message_id)
+         await xx.edit(lyric) 
       except Exception as e:
-         await message.reply_text(f"I Can't Find A Song With `{query}`", quote = True)
-         print(f"{e}")
-   
+         await xx.edit(f"I Can't Find A Song With `{query}`")
+         print(e)
+      return       
