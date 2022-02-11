@@ -68,12 +68,13 @@ async def song(client, message):
     files, offset, total_results = await get_search_results(str(yt.title), offset=1, filter=True)
     if files:
        for file in files:
-         if str(file.file_name)==f"{str(yt.title)}.mp3":
+         if str(file.file_name)==f"{yt.title}.mp3":
              xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
              can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
              await xx.edit_reply_markup(InlineKeyboardMarkup(can))
              return await status.delete()
-           
+         else: 
+             return await status.edit(file.file_name)
     results = []
     count = 0
     while len(results) == 0 and count < 6:
