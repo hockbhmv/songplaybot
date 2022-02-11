@@ -48,10 +48,8 @@ async def song(client, message):
       if args.startswith(" "):
          return await msg.reply_text("Enter a song name.\n\n **Example:**\n<code>/song panipalli 2</code>")
     else:
-      if msg.text.startswith("/"):
-         return
-      if settings['command']:
-         return
+      if msg.text.startswith("/"): return
+      elif settings['command']: return
       k = msg.text
       args = get_arg(msg) + k + "song"
       if not args:
@@ -74,7 +72,7 @@ async def song(client, message):
              await xx.edit_reply_markup(InlineKeyboardMarkup(can))
              return await status.delete()
          else: 
-             return await status.edit(f"{file.file_name}\n\n\n{{yt.title} mp3")
+             return await status.edit(f"{file.file_name}\n\n\n{yt.title} mp3")
     results = []
     count = 0
     while len(results) == 0 and count < 6:
