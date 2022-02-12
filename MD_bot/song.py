@@ -67,11 +67,14 @@ async def song(client, message):
     if files:
        for file in files:
          song_name = re.sub(r"(_|\-|\.|\+|\(|\))", "", yt.title)
-         if (file.file_name).replace("  "," ")==(f"{song_name} mp3").replace("  ", " "):
+         file_n, song_n = (f"{file.file_name} mp3").replace("  "," "), (f"{song_name} mp3").replace("  ", " ")
+         if file_n== song_n:
              await status.delete()
              xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
              can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
              return await xx.edit_reply_markup(InlineKeyboardMarkup(can))
+         else:
+             return await status.edit(f"{file_n}\n\n\n{song_n}")
     results = []
     count = 0
     while len(results) == 0 and count < 6:
