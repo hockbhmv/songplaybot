@@ -98,7 +98,7 @@ async def song(client, message):
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
        await status.edit("<code>🔄 uploading ▣▣▣</code>")
-       song = await client.send_audio(
+       xx = await client.send_audio(
            chat_id=message.chat.id,
            audio=f"{str(yt.title)}.mp3",
            duration=int(yt.length),
@@ -109,8 +109,8 @@ async def song(client, message):
            parse_mode="combined",
            reply_to_message_id= message.message_id)
        db = message.chat.id  
-       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{song.message_id}#{db}")]]
-       await song.edit_reply_markup(InlineKeyboardMarkup(can))
+       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
+       await xx.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
        await media(client, song)
        os.remove(f"{str(yt.title)}.mp3")
