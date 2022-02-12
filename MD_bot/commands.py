@@ -1,8 +1,8 @@
 import asyncio 
 import logging 
 import pyrogram 
-from .database import db 
 from info import PICS 
+from . import Media, db, settings
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -71,7 +71,19 @@ async def refresh_db(bot, message):
       video=True,
       command=True)
    return await db.update_settings(message.chat.id, default)
-   
+
+@Client.on_message(filters.command(["stats", "status"]))
+async def db_stats(bot, message): 
+   total = await Media.count_documents()
+   users = await db.total_users_count()
+   chats = await db.total_chat_count()
+   await message.reply_text(f"★ Total Songs: <code>{total}</code>\n★ Total users: <code>{users}</code>\n★ Total Chats: <code>{chats}</code>")
+
+@Client.on_message(filters.command("/delall"))
+async def db_stats(bot, message): 
+   await Media.collection.drop()
+   await message.reply_text('Succesfully Deleted All The Indexed Files.')
+
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
    int, type, value = msg.data.split('#')
@@ -81,9 +93,9 @@ async def settings_query(bot, msg):
       return await msg.answer("your not group owner or admin")
       
    if value=="True":
-      done = await save_group_settings(group, type, False)
+      done = await settings(group, type, False)
    else:
-      done = await save_group_settings(group, type, True)
+      done = await settings(group, type, True)
    settings = await db.get_settings(group)
    if done:
       if settings is not None:
@@ -126,10 +138,4 @@ async def startquery(bot, message):
           text="<b>MODULE LYRICS</b>\n\n📚 available command:\n<code>/Lyrics {Music name}</code>-<code>search lyrics of your query</code>\n\n<b>example:</b>\n<code>/lyrics Alone - Marshmallow</code>\n<code>/lyrics Nj panipali</code>\n",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
-  
-async def save_group_settings(group_id, key, value):
-    current = await db.get_settings(group_id)
-    current[key] = value
-    await db.update_settings(group_id, current)  
-    return True
 
