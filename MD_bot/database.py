@@ -8,7 +8,6 @@ class Database:
         self.db = self._client[database_name]
         self.col = self.db.users
         self.grp = self.db.groups
-        self.cache = {}
         
     def new_user(self, id, name):
         return dict(
@@ -24,8 +23,6 @@ class Database:
         return dict(
             id = id,
             title = title,
-            chat_status=dict(
-                song=True,
             ),
         )
  
@@ -64,18 +61,6 @@ class Database:
         chat = self.new_group(chat, title)
         await self.grp.insert_one(chat)
     
-    async def song(self, id):
-        chat_status=dict(
-            song =True,
-            )
-        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
-     
-    async def notsong(self, id):
-        chat_status=dict(
-            song=False,
-            )
-        await self.grp.update_one({'id': int(id)}, {'$set': {'chat_status': chat_status}})
-        
     async def get_chat(self, chat):
         chat = await self.grp.find_one({'id':int(chat)})
         if not chat:
@@ -98,15 +83,4 @@ class Database:
             return chat.get('settings', default)
         return default
     
-    async def find_chat(self, chat: int):
-        connections = self.cache.get(str(chat))
-        if connections is not None:
-            return connections
-        connections = await self.grp.find_one({'id': chat})
-        if connections:
-            self.cache[str(chat)] = connections
-            return connections
-        else: 
-            return self.new_group(None, None)
-          
 db= Database(DB, "song-bot")
