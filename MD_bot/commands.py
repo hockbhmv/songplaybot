@@ -79,7 +79,7 @@ async def db_stats(bot, message):
    chats = await db.total_chat_count()
    await message.reply_text(f"★ Total Songs: <code>{total}</code>\n★ Total users: <code>{users}</code>\n★ Total Chats: <code>{chats}</code>")
 
-@Client.on_message(filters.command("/delall"))
+@Client.on_message(filters.command("delall"))
 async def delete_files(bot, message): 
    await Media.collection.drop()
    await message.reply_text('Succesfully Deleted All The Indexed Files.')
