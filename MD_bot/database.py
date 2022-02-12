@@ -23,9 +23,8 @@ class Database:
         return dict(
             id = id,
             title = title,
-            ),
-        )
- 
+            )
+        
     async def add_user(self, id, name):
         user = self.new_user(id, name)
         await self.col.insert_one(user)
