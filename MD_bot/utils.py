@@ -122,6 +122,11 @@ async def get_file_details(query):
     filedetails = await cursor.to_list(length=1)
     return filedetails
 
+async def save_group_settings(group_id, key, value):
+    current = await db.get_settings(group_id)
+    current[key] = value
+    await db.update_settings(group_id, current)  
+    return True
 
 def encode_file_id(s: bytes) -> str:
     r = b""
