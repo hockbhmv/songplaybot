@@ -8,12 +8,9 @@ requests
 pyromod
 tswift 
 lyricsgenius 
-marshmallow==3.14.1
-umongo==3.0.1
 pymongo[srv]==3.12.3
 motor==2.5.1
 tgcrypto==1.2.2
-bs4
 aiofiles
 aiohttp
 search_engine_parser 
