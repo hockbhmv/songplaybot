@@ -7,7 +7,7 @@ import requests
 import youtube_dl
 from os import environ 
 from pytube import YouTube 
-from . import db as database, media
+from .database import db as database
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
 from youtubesearchpython import VideosSearch
@@ -103,7 +103,6 @@ async def song(client, message):
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
        await xx.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
-       await media(client, xx)
        os.remove(f"{str(yt.title)}.mp3")
     except:
        await status.edit("some error occurred, please try again")
