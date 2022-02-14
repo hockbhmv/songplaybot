@@ -55,14 +55,14 @@ async def song(client, message):
       args = get_arg(msg) + k + "song"
       if not args:
          return await msg.reply("ℹ️ error occurred")
-    status = await message.reply("<code>processing...</code>")
+    status = await message.reply("ᴘʀᴏᴄᴇssɪɴɢ...")
     video_link = yt_search(args)
-    await status.edit("<code>🔄 uploading ▢▢▢</code>")
+    await status.edit("🔄 ᴜᴘʟᴏᴀᴅɪɴɢ ▢▢▢")
     if not video_link:
         await status.edit(f"I couldn't find song with {args}")
         return ""
     yt = YouTube(video_link)
-    await status.edit("<code>🔄 uploading ▣▢▢</code>")
+    await status.edit("🔄 ᴜᴘʟᴏᴀᴅɪɴɢ ▣▢▢")
     results = []
     count = 0
     while len(results) == 0 and count < 6:
@@ -70,7 +70,7 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
-    await status.edit("<code>🔄 uploading ▣▣▢</code>")
+    await status.edit("🔄 ᴜᴘʟᴏᴀᴅɪɴɢ ▣▣▢")
     title = results[0]["title"]
     duration = results[0]["duration"]
     views = results[0]["views"]
@@ -98,9 +98,9 @@ async def song(client, message):
            performer="[MD MUSIC BOT]",
            parse_mode="combined",
            reply_to_message_id= message.message_id)
-       await status.edit("<code>🔄 uploading ▣▣▣</code>")
+       await status.edit("🔄 ᴜᴘʟᴏᴀᴅɪɴɢ ▣▣▣")
        db = message.chat.id  
-       can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
+       can = [[InlineKeyboardButton('♻️ sᴇɴᴅ ɪɴ ᴍʏ ᴘᴍ ♻️', callback_data=f"pm#{xx.message_id}#{db}")]]
        await xx.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
        os.remove(f"{str(yt.title)}.mp3")
