@@ -30,11 +30,11 @@ async def gstart(bot, cmd):
         await db.add_user(cmd.from_user.id, cmd.from_user.first_name)
         await bot.send_message(log, f"#NEWUSER: \nName - [{cmd.from_user.first_name}](tg://user?id={cmd.from_user.id})\nID - {cmd.from_user.id}")
    
-   buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data=f"start#help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
+   buttons = [[InlineKeyboardButton('➕ ᗩᗪᗪ ᗰᗴ TO YOᑌᖇ ᘜᖇOᑌᑭ ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ᕼᗴᒪᑭ', callback_data=f"start#help"),InlineKeyboardButton('ՏᑌᑭᑭOᖇT ᑕᕼᗩᑎᑎᗴᒪ', url=f"https://t.me/venombotupdates")]]
    reply_markup = InlineKeyboardMarkup(buttons)
    await cmd.reply_photo(
         photo=f"https://telegra.ph/file/156e945a81a2160012c2c.jpg", 
-        caption=f"Hi {cmd.from_user.first_name},\ni am a song bot i can give song in your group",
+        caption=f"ʜɪ {cmd.from_user.first_name},\nɪ ᴀᴍ ᴀ sᴏɴɢ ʙᴏᴛ ɪ ᴄᴀɴ ɢɪᴠᴇ sᴏɴɢ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
         parse_mode="html",
         reply_markup=reply_markup )
    return
@@ -106,28 +106,28 @@ async def settings_query(bot, msg):
 async def startquery(bot, message):
    i, k = message.data.split('#')
    if k =="start":
-       buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data="start#help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
+       buttons = [[InlineKeyboardButton('➕ ᗩᗪᗪ ᗰᗴ TO YOᑌᖇ ᘜᖇOᑌᑭ ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ᕼᗴᒪᑭ', callback_data="start#help"),InlineKeyboardButton('ՏᑌᑭᑭOᖇT ᑕᕼᗩᑎᑎᗴᒪ', url=f"https://t.me/venombotupdates")]]
        await message.message.edit_text(
           text= f"ʜɪ {message.from_user.first_name},\nɪ ᴀᴍ ᴀ sᴏɴɢ ʙᴏᴛ ɪ ᴄᴀɴ ɢɪᴠᴇ sᴏɴɢ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
    elif k =="help":
-       buttons = [[InlineKeyboardButton('Music', callback_data='start#song'),InlineKeyboardButton('lyrics', callback_data='start#lyric')],[InlineKeyboardButton('⬅️ Back', callback_data='start#start')]]
+       buttons = [[InlineKeyboardButton('ᗰᑌՏIᑕ', callback_data='start#song'),InlineKeyboardButton('ᒪYᖇIᑕՏ', callback_data='start#lyric')],[InlineKeyboardButton('⬅️ ᗷᗩᑕK', callback_data='start#start')]]
        await message.message.edit_text(
           text="ᴘʟᴇᴀsᴇ ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ sᴇɴᴅ ᴀ sᴏɴɢ ɴᴀᴍᴇ ɪ ᴡɪʟʟ ɢɪᴠᴇ ᴛʜᴀᴛ sᴏɴɢ ɪɴ ɢʀᴏᴜᴘ",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
    elif k =="song":
-       buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start#help')]]
+       buttons = [[InlineKeyboardButton('⬅️ ᗷᗩᑕK', callback_data='start#help')]]
        await message.message.edit_text(
          text="<b>MODULE FOR SONG 🎧:</b>\n\n\n📚available commands:\n\n- /song <code>{youtubeurl or Search Query}</code> <code>- download the particular query in audio format</code>\n- /video <code>{youtubeurl or search Query}</code> <code>- download the particular query in video format</code>\n\n<b>example:</b>\n<code>/song Ckay Love Nwantiti\n/song nadan vibe - ribin</code>\n\n<b>📖 other commands:</b>\n<code>/songwithcmd True</code>  <code>- This command for bot will give reply only with above command</code>\n<code>/songwithcmd False</code>  <code>- This command for bot will give song not video without any above command</code>\n\n<b>example:-</b>\n<code>panipalli 2</code>\n<code>Ckay Love Nwantiti</code>",
          reply_markup = InlineKeyboardMarkup(buttons),
          parse_mode='html')
          
    elif k =="lyric":
-       buttons = [[InlineKeyboardButton('⬅️ Back', callback_data='start#help')]]
+       buttons = [[InlineKeyboardButton('⬅️ ᗷᗩᑕK', callback_data='start#help')]]
        await message.message.edit_text(
           text="<b>MODULE LYRICS</b>\n\n📚 available command:\n<code>/Lyrics {Music name}</code>-<code>search lyrics of your query</code>\n\n<b>example:</b>\n<code>/lyrics Alone - Marshmallow</code>\n<code>/lyrics Nj panipali</code>\n",
           reply_markup = InlineKeyboardMarkup(buttons),
