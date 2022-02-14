@@ -115,7 +115,7 @@ async def song(client, message):
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
        await xx.edit_reply_markup(InlineKeyboardMarkup(can))
        await status.delete()
-       await media(client, song)
+       await media(client, xx)
        os.remove(f"{str(yt.title)}.mp3")
     except:
        await status.edit("some error occurred, please try again")
