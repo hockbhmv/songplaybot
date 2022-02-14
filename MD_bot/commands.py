@@ -1,8 +1,8 @@
 import asyncio 
 import logging 
 import pyrogram 
+from .database db
 from info import PICS 
-from . import Media, db, settings
 from pyrogram import Client, filters 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
@@ -74,15 +74,9 @@ async def refresh_db(bot, message):
 
 @Client.on_message(filters.command(["stats", "status"]))
 async def db_stats(bot, message): 
-   total = await Media.count_documents()
    users = await db.total_users_count()
    chats = await db.total_chat_count()
-   await message.reply_text(f"★ Total Songs: <code>{total}</code>\n★ Total users: <code>{users}</code>\n★ Total Chats: <code>{chats}</code>")
-
-@Client.on_message(filters.command("delall"))
-async def delete_files(bot, message): 
-   await Media.collection.drop()
-   await message.reply_text('Succesfully Deleted All The Indexed Files.')
+   await message.reply_text(f"★ Total users: <code>{users}</code>\n★ Total Chats: <code>{chats}</code>")
 
 @Client.on_callback_query(filters.regex(r"^done"))
 async def settings_query(bot, msg):
@@ -114,14 +108,14 @@ async def startquery(bot, message):
    if k =="start":
        buttons = [[InlineKeyboardButton('➕ Add to your group ➕', url='http://t.me/MD_songbot?startgroup=true')],[InlineKeyboardButton('ℹ️ Help', callback_data="start#help"),InlineKeyboardButton('📢 Support channel', url=f"https://t.me/venombotupdates")]]
        await message.message.edit_text(
-          text= f"Hi {message.from_user.first_name},\ni am a song bot i can give song in your group",
+          text= f"ʜɪ {message.from_user.first_name},\nɪ ᴀᴍ ᴀ sᴏɴɢ ʙᴏᴛ ɪ ᴄᴀɴ ɢɪᴠᴇ sᴏɴɢ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
    elif k =="help":
        buttons = [[InlineKeyboardButton('Music', callback_data='start#song'),InlineKeyboardButton('lyrics', callback_data='start#lyric')],[InlineKeyboardButton('⬅️ Back', callback_data='start#start')]]
        await message.message.edit_text(
-          text="please add me in your group and send a song name i will give that song in group",
+          text="ᴘʟᴇᴀsᴇ ᴀᴅᴅ ᴍᴇ ɪɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ ᴀɴᴅ sᴇɴᴅ ᴀ sᴏɴɢ ɴᴀᴍᴇ ɪ ᴡɪʟʟ ɢɪᴠᴇ ᴛʜᴀᴛ sᴏɴɢ ɪɴ ɢʀᴏᴜᴘ",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
       
@@ -138,4 +132,10 @@ async def startquery(bot, message):
           text="<b>MODULE LYRICS</b>\n\n📚 available command:\n<code>/Lyrics {Music name}</code>-<code>search lyrics of your query</code>\n\n<b>example:</b>\n<code>/lyrics Alone - Marshmallow</code>\n<code>/lyrics Nj panipali</code>\n",
           reply_markup = InlineKeyboardMarkup(buttons),
           parse_mode='html')
+      
+async def settings(group_id, key, value):
+    current = await db.get_settings(group_id)
+    current[key] = value
+    await db.update_settings(group_id, current)  
+    return True
 
