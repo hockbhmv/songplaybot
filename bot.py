@@ -1,6 +1,5 @@
 import os
 import pyromod.listen
-from MD_bot import Media
 from pyrogram import Client
 from info import BOT_TOKEN, API_ID, API_HASH
 
@@ -25,7 +24,6 @@ class Bot(Client):
         
     async def start(self):
         await super().start()
-        await Media.ensure_indexes()
         me = await self.get_me()
         print(f'bot {me.username} started')  
         
