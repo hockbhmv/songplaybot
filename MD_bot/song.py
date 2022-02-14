@@ -7,10 +7,10 @@ import requests
 import youtube_dl
 from os import environ 
 from pytube import YouTube 
+from . import db as database, media
 from pyrogram import Client, filters
 from youtube_search import YoutubeSearch 
 from youtubesearchpython import VideosSearch
-from . import get_search_results, db as database, media
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery 
 
 logging.getLogger().setLevel(logging.ERROR)
@@ -25,7 +25,8 @@ def yt_search(song):
     else:
         video_id = result["result"][0]["id"]
         url = f"https://youtu.be/{video_id}"
-        return url
+        return url 
+       
 def get_arg(message):
     msg = message.text
     msg = msg.replace(" "," ",1) if msg[1] == " " else msg
@@ -60,21 +61,8 @@ async def song(client, message):
     if not video_link:
         await status.edit(f"I couldn't find song with {args}")
         return ""
-    await status.edit("<code>🔄 uploading ▣▢▢</code>")
     yt = YouTube(video_link)
-    await status.edit("<code>🔄 uploading ▣▣▢</code>")
-    files, offset, total_results = await get_search_results(str(yt.title), offset=1, filter=True)
-    if files:
-       for file in files:
-         song_name = re.sub(r"(_|\-|\.|\+|\(|\))", "", yt.title)
-         file_n, song_n = (file.file_name).replace("  ", " "), (f"{song_name} mp3").replace("  ", " ")
-         if file_n==song_n:
-             await status.delete()
-             xx = await client.send_cached_media(chat_id=message.chat.id,file_id=file.file_id, caption=file.caption, reply_to_message_id= message.message_id)
-             can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{message.chat.id}")]]
-             return await xx.edit_reply_markup(InlineKeyboardMarkup(can))
-         else:
-             return await status.edit(f"{file_n}\n\n\n{song_n}")
+    await status.edit("<code>🔄 uploading ▣▢▢</code>")
     results = []
     count = 0
     while len(results) == 0 and count < 6:
@@ -82,7 +70,7 @@ async def song(client, message):
             time.sleep(1)
         results = YoutubeSearch(args, max_results=1).to_dict()
         count += 1
-   
+    await status.edit("<code>🔄 uploading ▣▣▢</code>")
     title = results[0]["title"]
     duration = results[0]["duration"]
     views = results[0]["views"]
@@ -95,12 +83,11 @@ async def song(client, message):
         audio = yt.streams.filter(only_audio=True).first()
         download = audio.download(filename=f"{str(user_id)}")
     except Exception as ex:
-        await status.edit("Failed to download song 😶")
+        await status.edit("some error occurred, please try again")
         return ""
     rename = os.rename(download, f"{str(yt.title)}.mp3")
     await client.send_chat_action(message.chat.id, "upload_audio")
     try:
-       await status.edit("<code>🔄 uploading ▣▣▣</code>")
        xx = await client.send_audio(
            chat_id=message.chat.id,
            audio=f"{str(yt.title)}.mp3",
@@ -111,6 +98,7 @@ async def song(client, message):
            performer="[MD MUSIC BOT]",
            parse_mode="combined",
            reply_to_message_id= message.message_id)
+       await status.edit("<code>🔄 uploading ▣▣▣</code>")
        db = message.chat.id  
        can = [[InlineKeyboardButton('🔰 SEND IN MY PM 🔰', callback_data=f"pm#{xx.message_id}#{db}")]]
        await xx.edit_reply_markup(InlineKeyboardMarkup(can))
