@@ -1,7 +1,7 @@
 import asyncio 
 import time, datetime
 from pyrogram import Client, filters 
-from .database import get_all_users, get_all_chats, total_users_count, total_chat_count
+from .database import db
 from db import total_users, total_groups, new_user, new_group
 from info import MONGODB_URL, DB
 
@@ -9,15 +9,15 @@ from info import MONGODB_URL, DB
 async def verupikkals(bot, message):
     i, use = message.text.split(None, 1)
     if use=="users":
-        total = await total_users_count()
-        users = await get_all_users()
+        total = await db.total_users_count()
+        users = await db.get_all_users()
         ntotal = await total_users()
         total_users = total 
         name = "name"
         new_chat = new_user
     else:
-        total = await total_chat_count()
-        users = await get_all_chats()
+        total = await db.total_chat_count()
+        users = await db.get_all_chats()
         ntotal = await total_groups()
         total_users = total 
         name = "title"
