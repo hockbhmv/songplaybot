@@ -12,6 +12,14 @@ async def all_users():
 async def total_users():
     count = await dbusers.count_documents({})
     return count 
+
+async def new_user(id :int, name):
+    user = await dbusers.find_one({"id": id})
+    if not user:
+       data = {"id": id, "name": name} 
+       await dbusers.insert_one(data)
+       return True, "new"
+    return True, "in"
   
 """groups"""
 
@@ -21,3 +29,11 @@ async def all_groups():
 async def total_groups():
     count = await groups.count_documents({})
     return count 
+
+async def new_group(id :int, name):
+    user = await groups.find_one({"id": id})
+    if not user:
+       data = {"id": id, "title": name} 
+       await groups.insert_one(data)
+       return True, "new"
+    return True, "in"
