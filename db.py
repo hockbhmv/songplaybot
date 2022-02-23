@@ -1,7 +1,8 @@
 from motor.motor_asyncio import AsyncIOMotorClient as Bot
 from info import MONGODB_URL as url 
 
-db=url.program
+MONGODB_CLI = Bot(url)
+db=MONGODB_CLI.program
 dbusers = db.dbusers
 groups = db.chatsettings
 
