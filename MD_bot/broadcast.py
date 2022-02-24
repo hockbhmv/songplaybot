@@ -2,7 +2,7 @@ import asyncio
 import time, datetime
 from pyrogram import Client, filters 
 from .database import db
-from db import total_users, total_groups, new_user, new_group
+from db import total_users as moot, total_groups, new_user, new_group
 from info import MONGODB_URL, DB
 
 @Client.on_message(filters.command("broadcast"))
@@ -11,7 +11,7 @@ async def verupikkals(bot, message):
     if use=="users":
         total = await db.total_users_count()
         users = await db.get_all_users()
-        ntotal = await total_users()
+        ntotal = await moot()
         total_users = total 
         name = "name"
         new_chat = new_user
