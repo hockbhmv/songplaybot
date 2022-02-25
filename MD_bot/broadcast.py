@@ -30,7 +30,10 @@ async def verupikkals(bot, message):
     old = 0
     new = 0
     async for user in users:
-        i, use= await new_chat(int(user["id"]), user[name])
+        try:
+           i, use= await new_chat(int(user["id"]), user[name])
+        except:
+           continue
         if use=="in":
            old+=1
         else:
