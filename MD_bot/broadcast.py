@@ -3,7 +3,6 @@ import time, datetime
 from pyrogram import Client, filters 
 from .database import db
 from db import total_users as moot, total_groups, new_user, new_group
-from info import MONGODB_URL, DB
 
 @Client.on_message(filters.command("broadcast"))
 async def verupikkals(bot, message):
