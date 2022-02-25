@@ -1,5 +1,5 @@
 import motor.motor_asyncio
-from info import DB 
+from info import MONGODB_URL as DB 
 
 class Database:
 
