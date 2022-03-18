@@ -4,7 +4,12 @@
   "description": "Open-Source bot to play songs in your Telegram's Group Voice Chat. Powered by PyTgCalls.",
   "keywords": ["music", "voicechat", "telegram"],
   "repository": "https://github.com/hockbhmv/songplaybot.git",
-  "stack": "heroku-20",
+  "stack": "container",
+  "env": {
+    "BOT_TOKEN": {
+      "description": "Get it from @Botfather",
+      "value": ""
+  },
   "buildpacks": [
    {
      "url": "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
