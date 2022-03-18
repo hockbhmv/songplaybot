@@ -9,6 +9,7 @@
     "BOT_TOKEN": {
       "description": "Get it from @Botfather",
       "value": ""
+      }
   },
   "buildpacks": [
    {
