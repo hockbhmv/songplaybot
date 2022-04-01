@@ -32,7 +32,9 @@ async def verupikkals(bot, message):
     async for user in users:
         try:
            i, use= await new_chat(int(user["id"]), user[name])
-        except:
+        except Exception as e:
+           print(e)
+           await message.reply_text(e)
            continue
         if use=="in":
            old+=1
